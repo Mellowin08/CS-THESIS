@@ -1,12 +1,26 @@
-import pandas as pd
+import csv
 
-def modify_csv(input_file, output_file, num_rows_to_keep):
-    df = pd.read_csv(input_file)
-    df = df.head(num_rows_to_keep)
-    df.to_csv(output_file, index=False)
+def modify_csv(input_file, output_file, rows_per_score=200):
+    with open(input_file, 'r') as csv_in, open(output_file, 'w', newline='') as csv_out:
+        reader = csv.DictReader(csv_in)
+        fieldnames = reader.fieldnames
+        writer = csv.DictWriter(csv_out, fieldnames)
+        writer.writeheader()
+
+        scores = {}
+        for row in reader:
+            score = row['Score']
+            if score not in scores:
+                scores[score] = 0
+
+            if scores[score] < rows_per_score:
+                writer.writerow(row)
+                scores[score] += 1
+
+            if sum(scores.values()) >= len(scores) * rows_per_score:
+                break
 
 if __name__ == "__main__":
-    input_file = r'D:\Downloads\Reviews.csv'
+    input_file = r"D:\Downloads\Reviews.csv"
     output_file = "Training Data.csv"
-    num_rows_to_keep = 1000
-    modify_csv(input_file, output_file, num_rows_to_keep)
+    modify_csv(input_file, output_file)
