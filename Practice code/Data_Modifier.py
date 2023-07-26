@@ -1,6 +1,6 @@
 import csv
 
-def modify_csv(input_file, output_file, rows_per_score=200):
+def modify_csv(input_file, output_file, rows_per_score=500):
     with open(input_file, 'r') as csv_in, open(output_file, 'w', newline='') as csv_out:
         reader = csv.DictReader(csv_in)
         fieldnames = reader.fieldnames
