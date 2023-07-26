@@ -3,9 +3,7 @@ from bs4 import BeautifulSoup
 import nltk
 from nltk.corpus import stopwords
 
-nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
-
 REPLACE_BY_SPACE_RE = re.compile(r'[^\w\s]')
 
 def text_cleaner(text):
