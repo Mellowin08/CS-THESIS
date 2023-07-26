@@ -8,5 +8,5 @@ def modify_csv(input_file, output_file, num_rows_to_keep):
 if __name__ == "__main__":
     input_file = r'D:\Downloads\Reviews.csv'
     output_file = "Training Data.csv"
-    num_rows_to_keep = 500
+    num_rows_to_keep = 1000
     modify_csv(input_file, output_file, num_rows_to_keep)
