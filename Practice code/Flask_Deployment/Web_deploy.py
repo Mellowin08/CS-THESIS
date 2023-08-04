@@ -14,7 +14,9 @@ stop_words = set(stop_words)
 stop_words -= negative_words
 len_stop_words = len(stop_words)
 
-model = joblib.load(r"D:\Documents\CODES\CS-THESIS\Practice code\Review_Analyzer")
+classifier2 = joblib.load(r"D:\Documents\CODES\CS-THESIS\Practice code\classifier2.joblib")
+Tvectorizer = joblib.load(r"D:\Documents\CODES\CS-THESIS\Practice code\Tvectorizer.joblib")
+
 
 def text_cleaner(text):
     text = text.lower() 
@@ -35,8 +37,14 @@ def predict():
     if request.method == 'POST':
         user_input = request.form['review']
         user_input = text_cleaner(user_input)
-        result = model.predict([user_input])
+
+        # Vectorize the cleaned text
+        cleaned_words_vectorized = Tvectorizer.transform([user_input])
+
+        # Predict using the loaded classifier
+        result = classifier2.predict(cleaned_words_vectorized)
         ans = result[0]
+
         if ans == 'Positive':
             return "Positive :)"
         elif ans == 'Negative':
