@@ -1,0 +1,62 @@
+Description: Scrapped; Resource-intensive, Time-consuming. Doesn't yield huge difference
+
+--------------------------------------------------------------------
+
+Hybrid Model Specifications
+Classifier    : LinearSVC() 
+Vectorizer    : TfidfVectorizer(ngram_range=(1, 2)) + TextBlob Sentiment Scoring
+Dataset       : 1814534
+Sampled       : 181453(10.0% of Dataset)
+Training set  : 145162 
+Testing set   : 36291 
+
+Model Evaluation
+Accuracy      : 86.69091510291807 
+
+Confusion Matrix:
+[[ 2761   323  1184]
+ [  704   569  1890]
+ [  415   314 28131]] 
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       0.71      0.65      0.68      4268
+     Neutral       0.47      0.18      0.26      3163
+    Positive       0.90      0.97      0.94     28860
+
+    accuracy                           0.87     36291
+   macro avg       0.69      0.60      0.62     36291
+weighted avg       0.84      0.87      0.85     36291
+ 
+===========================================================
+
+Code Used:
+!pip install textblob
+
+from textblob import TextBlob  # For basic sentiment analysis
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+vectorizer = TfidfVectorizer(ngram_range=(1, 2))
+vectorizer.fit(x_train)
+
+x_train_vectorized = vectorizer.transform(x_train)
+x_test_vectorized = vectorizer.transform(x_test)
+
+# Calculate sentiment scores for words using TextBlob
+def get_sentiment_score(text):
+    blob = TextBlob(text)
+    sentiment_score = blob.sentiment.polarity  # Range: [-1, 1]
+    return sentiment_score
+
+# Calculate average sentiment scores for words in each sentence
+x_train_sentiment = np.array([np.mean([get_sentiment_score(word) for word in sentence.split()]) for sentence in x_train])
+x_test_sentiment = np.array([np.mean([get_sentiment_score(word) for word in sentence.split()]) for sentence in x_test])
+
+from scipy.sparse import hstack
+
+# Combine the sentiment scores with TF-IDF features as sparse matrices
+x_train_combined = hstack((x_train_vectorized, x_train_sentiment.reshape(-1, 1)))
+x_test_combined = hstack((x_test_vectorized, x_test_sentiment.reshape(-1, 1)))
+
