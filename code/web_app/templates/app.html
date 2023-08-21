@@ -25,9 +25,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="text-center mt-2" id="result">
-                            <h2><strong>Review Detection:</strong></h2>
-                            <span class="prediction-text" id="predictionResult"></span>
-                        </div>
+                            <div class="text-center mt-2" id="result">
+                                <h2><strong>Review Detection:</strong></h2>
+                                <span class="prediction-text" id="predictionResult"></span>
+                                <p><strong>Negative Confidence (%):</strong> <span id="negativeConfidence"></span></p>
+                                <p><strong>Neutral Confidence (%):</strong> <span id="neutralConfidence"></span></p>
+                                <p><strong>Positive Confidence (%):</strong> <span id="positiveConfidence"></span></p>
+                            </div>
+                            
                     </div>
                 </div>
             </div>
@@ -42,6 +47,10 @@
             document.getElementById('review').value = '';
             autosize.update(document.getElementById('review'));
             document.getElementById('predictionResult').textContent = '';
+            document.getElementById('predictionResult').textContent = '';
+            document.getElementById('negativeConfidence').textContent = '';
+            document.getElementById('neutralConfidence').textContent = '';
+            document.getElementById('positiveConfidence').textContent = '';
         });
     
         document.getElementById('predictButton').addEventListener('click', function() {
@@ -52,7 +61,11 @@
                 url: '/predict',
                 data: { review: review },
                 success: function(result) {
-                    document.getElementById('predictionResult').textContent = result;
+                    const [sentiment, negativeConfidence, neutralConfidence, positiveConfidence] = result.split(',');
+                    document.getElementById('predictionResult').textContent = sentiment;
+                    document.getElementById('negativeConfidence').textContent = negativeConfidence + '%';
+                    document.getElementById('neutralConfidence').textContent = neutralConfidence + '%';
+                    document.getElementById('positiveConfidence').textContent = positiveConfidence + '%';
                 }
             });
         });

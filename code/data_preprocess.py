@@ -1,10 +1,10 @@
 import nltk
 from nltk.corpus import stopwords
-nltk.download('stopwords')
+nltk.download('stopwords', quiet=True)
 
 
 stop_words = set(stopwords.words('english'))
-negative_words = {'no', 'not', "don't", "aren't", "couldn't", "didn't", "doesn't", "hadn't", "hasn't", "haven't", "isn't", "mightn't", "mustn't", "needn't", "shouldn't", "wasn't", "weren't", "won't", "wouldn't", "never", "neither", "nor", "none", "nobody", "nowhere", "nothing", "hardly", "scarcely"}
+negative_words = {'no', 'not', "never", "neither", "nor", "none", "nobody", "nowhere", "nothing", "hardly", "scarcely"}
 stop_words -= negative_words # Remove the Negative words
 
 
@@ -19,4 +19,5 @@ def text_cleaner(text):
     words = text.split()                       # Splitting the text into individual words
     words = [contractions.fix(word) for word in words]  # Expand Contractions
     cleaned_text = " ".join(word for word in words if word not in stop_words) # Remove the stopwords from the text.
+    print(cleaned_text)
     return cleaned_text

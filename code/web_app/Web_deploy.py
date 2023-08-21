@@ -12,19 +12,15 @@ def home():
     return render_template('app.html')
 
 @app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
         user_input = request.form['review']
 
         # Get Prediction using imported function
-        ans = predict_sentiment(user_input)
+        predicted_sentiment, (negative_confidence, neutral_confidence, positive_confidence) = predict_sentiment(user_input)
 
-        if ans == 'Positive':
-            return "Positive :)"
-        elif ans == 'Negative':
-            return "Negative :("
-        elif ans == 'Neutral':
-            return "Neutral :|"
+        return f"{predicted_sentiment},{negative_confidence},{neutral_confidence},{positive_confidence}"
 
 if __name__ == '__main__':
     app.run(debug=True)
