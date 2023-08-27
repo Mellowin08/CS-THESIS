@@ -19,5 +19,5 @@ def text_cleaner(text):
     words = text.split()                       # Splitting the text into individual words
     words = [contractions.fix(word) for word in words]  # Expand Contractions
     cleaned_text = " ".join(word for word in words if word not in stop_words) # Remove the stopwords from the text.
-    print(cleaned_text)
+    #print(cleaned_text)
     return cleaned_text

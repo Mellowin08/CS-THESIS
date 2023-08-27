@@ -6,15 +6,18 @@ import os
 import numpy as np
 
 current_path = os.path.dirname(__file__)
-models_path = os.path.join(current_path, '..', 'models/')
+models_path = os.path.join(current_path, '../models/')
 vectorizer = joblib.load(models_path + "tfidf_vectorizer.joblib")
 svm_classifier = joblib.load(models_path + "SVM_classifier.joblib")
 
 def predict_sentiment(user_input):
-    if not user_input:
-        raise TypeError("Input cannot be empty")
-
     user_input = text_cleaner(user_input)
+
+    if not user_input or user_input.isspace():
+        raise TypeError("Input cannot be empty")
+    elif user_input.isnumeric():
+        raise TypeError("Input should be text, not numeric")
+
     cleaned_words_vectorized = vectorizer.transform([user_input])
     main_prediction = svm_classifier.predict(cleaned_words_vectorized)
 
