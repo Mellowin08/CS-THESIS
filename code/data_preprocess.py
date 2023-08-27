@@ -16,8 +16,8 @@ def text_cleaner(text):
     text = re.sub(r'<.*?>', ' ', text)         # Remove HTML tags
     text = re.sub(r'http\S+', ' ', text)       # Remove URLs using regular expression not covered by tags
     text = re.sub(r'[^A-Za-z0-9\s]', '', text) # Remove non-alphanumeric characters using regular expression
-    words = text.split()                       # Splitting the text into individual words
-    words = [contractions.fix(word) for word in words]  # Expand Contractions
+    text = contractions.fix(text)              # Expand Contractions
+    words = text.split()                       # Tokenize for stop word removal
     cleaned_text = " ".join(word for word in words if word not in stop_words) # Remove the stopwords from the text.
-    #print(cleaned_text)
     return cleaned_text
+

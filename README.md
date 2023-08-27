@@ -13,15 +13,24 @@ Follow these instructions to set up and run the system locally.
   - Required Python libraries (listed in `requirements.txt`)
 
 ### Installation
-1. Clone the Repository
+1. Clone the Repository `gh repo clone Mellowin08/CS-THESIS`
 2. Install the required dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
+### Dataset
+See Data Source section for the details of the dataset used in this project.
+
+This study used a combination of non-digital product reviews with a maximum of 100,000 rows for each category. If you want it, you can access it here: [amazon_reviews.csv](https://drive.google.com/file/d/1RfLyvBELQZ9aAbayx3O_iK5k23td5jjt/). 
+
+Additionally, a Colab notebook has been provided, allowing you to customize your dataset combination. You can access it here: [Custom Dataset Selection.ipynb](https://colab.research.google.com/drive/1UxbcRmVtLWTrf50aL3YOTFiiMT2glOfC?usp=sharing).
+
+After obtaining the dataset file, please put it on /CS-THESIS/data/raw_data/
+
 ## Data Source
 
-The dataset used in this project was obtained from the [Amazon Review Data (2018)](https://nijianmo.github.io/amazon/index.html#subsets) provided by Jianmo Ni, UCSD.
+The dataset used in this project was obtained from the [Amazon Review Data (2018)](https://nijianmo.github.io/amazon/index.html#subsets) generously provided by Jianmo Ni, UCSD.
 
 - Dataset Name: Amazon Review Data (2018)
 - Source: [https://nijianmo.github.io/amazon/index.html#subsets](https://nijianmo.github.io/amazon/index.html#subsets)
