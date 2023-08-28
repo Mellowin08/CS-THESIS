@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request
 # Import function
-import sys
-sys.path.append("..")
 from satisfaction_analysis import predict_sentiment
 
 

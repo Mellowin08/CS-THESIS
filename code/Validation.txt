@@ -1,0 +1,32 @@
+Validation is put on input box and stuff right?
+I'm not sure how it goes but here is a sample of what I think could be.
+
+1. Max character length is 500. The model isn't currently good enough for multi sentiment classification so making this limit is better.
+
+2. User cannot press predict button when there isn't enough input (i.e they just put a white space, numbers and stuff). This isn't a high priority one but just in case they ask for it.
+
+
+Example code for validation logic check in python:
+if not user_input or user_input.isspace():
+    raise ValueError("Input cannot be empty or contain only whitespace")
+elif user_input.isnumeric():
+    raise ValueError("Input should be text, not numeric")
+
+def test_type_error(test_case,data):
+for review in data:
+    with test_case.subTest(review=review):
+        with test_case.assertRaises(TypeError):
+            predict_sentiment(review)
+
+def test_empty_reviews(self):
+    empty_cases = [
+            "",       # Empty review
+            "   ",    # Whitespace-only
+    ]
+    test_type_error(self, empty_cases)
+
+def test_numerical_reviews(self):
+    numeric_cases = [
+            '23',4324,    # Integer
+    ]
+    test_type_error(self, numeric_cases)

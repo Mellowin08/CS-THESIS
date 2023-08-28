@@ -1,28 +1,23 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
-from data_preprocess import text_cleaner, stop_words
+from data_preprocess import text_cleaner
 import joblib
 import os
 import numpy as np
 
 current_path = os.path.dirname(__file__)
-models_path = os.path.join(current_path, '../models/')
+models_path = os.path.join(current_path, '../machine_learning/models/')
 vectorizer = joblib.load(models_path + "tfidf_vectorizer.joblib")
 svm_classifier = joblib.load(models_path + "SVM_classifier.joblib")
 
 def predict_sentiment(user_input):
-    user_input = text_cleaner(user_input)
+    clean_input = text_cleaner(user_input)
 
-    if not user_input or user_input.isspace():
-        raise TypeError("Input cannot be empty")
-    elif user_input.isnumeric():
-        raise TypeError("Input should be text, not numeric")
-
-    cleaned_words_vectorized = vectorizer.transform([user_input])
-    main_prediction = svm_classifier.predict(cleaned_words_vectorized)
+    input_vectorized = vectorizer.transform([clean_input])
+    main_prediction = svm_classifier.predict(input_vectorized)
 
     # Calculate decision scores for each class
-    decision_scores = svm_classifier.decision_function(cleaned_words_vectorized)
+    decision_scores = svm_classifier.decision_function(input_vectorized)
 
     # Calculate confidence levels using softmax
     confidence_levels = np.exp(decision_scores) / np.sum(np.exp(decision_scores), axis=1, keepdims=True)

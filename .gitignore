@@ -1,4 +1,4 @@
 code/__pycache__/
-models/
-data/processed_data
-data/raw_data
+machine_learning/models/
+machine_learning/datasets/
+

@@ -22,7 +22,7 @@ pip install -r requirements.txt
 ### Dataset
 See Data Source section for the details of the dataset used in this project.
 
-This study used a combination of non-digital product reviews with a maximum of 100,000 rows for each category. If you want it, you can access it here: [amazon_reviews.csv](https://drive.google.com/file/d/1RfLyvBELQZ9aAbayx3O_iK5k23td5jjt/). 
+This project used a dataset that has a combination of non-digital product reviews (maximum of 100,000 rows for each category). If you want it, you can access it here: [amazon_reviews.csv](https://drive.google.com/file/d/1RfLyvBELQZ9aAbayx3O_iK5k23td5jjt/). 
 
 Additionally, a Colab notebook has been provided, allowing you to customize your dataset combination. You can access it here: [Custom Dataset Selection.ipynb](https://colab.research.google.com/drive/1UxbcRmVtLWTrf50aL3YOTFiiMT2glOfC?usp=sharing).
 
