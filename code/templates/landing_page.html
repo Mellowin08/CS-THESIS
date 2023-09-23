@@ -19,7 +19,8 @@
 
     <title>Home | RevU's</title>
 </head>
-<body>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="100">
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg align-items-center navbar-dark fixed-top">
         <a class="navbar-brand" href="landing_page.html">RevU’s</a>
@@ -28,12 +29,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#home">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
                     <a class="nav-link" href="#about">About</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a id="caret" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Analyzer
@@ -85,6 +82,14 @@
         <p>Our system uses Machine learning model to identify if a  product review fall under positive, negative, or neutral by analyzing the text.</p>
     </section>
 </div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('body').scrollspy({ target: '#navbarNav' });
+    });
+</script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
