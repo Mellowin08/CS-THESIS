@@ -145,6 +145,47 @@ img {
     border-color: white;
 }
 
+/*About*/
+#about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+
+#about h2 {
+    font-size: 26px; 
+    font-weight: bold;
+}
+
+#about p {
+    font-size: 20px; 
+}
+
+#about img {
+    max-width: 100%;
+    height: auto;
+    display: block; 
+    margin: 0 auto; 
+}
+
+#about image-center{
+    max-width: 100%;
+    height: auto;
+}
+
+/*Meet the Proponents*/
+.smaller-title {
+    font-weight: bold;
+    font-size: 18px; /* Adjust the font size as needed */
+    margin-top: 10px; /* Add margin to separate from the image */
+}
+
+.image-frame p {
+    margin: 10px 0;
+}
+
+
 @media (max-width: 992px) {
     .navbar-brand {
         font-size: 28px !important;
@@ -233,6 +274,7 @@ img {
         padding-left: 13px !important;
         padding-right: 13px !important;
     }
+   
     .row.justify-content-start.mt-5 {
         margin-left: 1px !important;
         margin-right: 1px !important;
@@ -246,4 +288,5 @@ img {
     .img-fluid {
         margin-top: 50px;
     }
+    
 }
