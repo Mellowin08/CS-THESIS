@@ -16,31 +16,36 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/favicons/favicon-16x16.png">
     <link rel="manifest" href="../images/favicons//site.webmanifest">
-
-    <title>Home | RevU's</title>
+    <!-- Footer Script -->
+    <script src="components/footer.js" type="text/javascript" defer></script>
+    <!-- Other Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>RevU's</title>
 </head>
 <body data-spy="scroll" data-target="#navbarNav" data-offset="100">
 
     <!-- Navbar -->
     <nav class="pl-5 pr-5 navbar navbar-expand-lg align-items-center navbar-dark fixed-top">
-        <a class="navbar-brand" href="landing_page.html">RevU’s</a>
+        <a class="navbar-brand" href="index.html">RevU’s</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                    <a class="nav-link" href="#home">Home</a>
-                    <a class="nav-link" href="#features">Features</a>
-                    <a class="nav-link" href="#context">Context</a>
-                    <a class="nav-link" href="#team">The Team</a>
+                <a class="nav-link" href="#home">Home</a>
+                <a class="nav-link" href="#features">Features</a>
+                <a class="nav-link" href="#context">Context</a>
+                <a class="nav-link" href="#team">The Team</a>
                 <li class="nav-item dropdown">
                     <a id="caret" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Analyzer
                     </a>
                     <div class="dropdown-menu dropdown-menu-right fade-in" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Individual Review</a>
+                        <a class="dropdown-item" href="individual_review.html">Individual Review</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Consolidated Reviews</a>
+                        <a class="dropdown-item" href="consolidated_reviews.html">Consolidated Reviews</a>
                     </div>
                 </li>
             </ul>
@@ -198,55 +203,14 @@
         </div>
     </div>
     </section>
-    <!-- Footer -->
-    <footer class="py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h2 class="navbar-brand">RevU's</h2>
-                </div>
-                <div class="col-md-4">
-                    <h5>Relevant Links:</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="https://nijianmo.github.io/amazon/index.html#subsets">Data Source</a></li>
-                        <li><a href="https://github.com/Mellowin08/CS-THESIS/">Website Repository</a></li>
-                        <li><a href="#">Research Paper</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Image Attribution:</h5>
-                        <ul class="list-unstyled">
-                                <li><a href="https://www.freepik.com/author/pikisuperstar">pikisuperstar</a></li>
-                                <li><a href="https://storyset.com/">Storyset</a></li>
-                                <li><a href="https://www.pexels.com/@olly/">Andrea Piacquadio</a></li>
-                                <li><a href="https://www.pexels.com/@polina-tankilevitch/">Polina Tankilevitch</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>
-                        This CS Thesis Writing is presented to the Faculty of the College of Computer Studies, AMA Computer College
-                        <br>
-                        In Partial Fulfillment of the Requirements of the Degree of Bachelor of Science in Computer Science (BSCS)
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <footer-component></footer-component>
 </div>
 
 <script>
+    // Navbar Scroll Script
     $(document).ready(function () {
         $('body').scrollspy({ target: '#navbarNav' });
     });
 </script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
