@@ -294,7 +294,17 @@ footer {
     .img-fluid {
         margin-top: 50px;
     }
-    
-
-
+    footer {
+        text-align: center;
+    }
+    .footer-links {
+        margin-top: 20px;
+    }
+    .footer-links ul {
+        padding-left: 0;
+    }
+    .footer-links ul ul li {
+        list-style-type: none !important;
+        margin-bottom: 10px;
+    }
 }
