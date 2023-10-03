@@ -16,6 +16,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/favicons/favicon-16x16.png">
     <link rel="manifest" href="../images/favicons//site.webmanifest">
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- Footer Script -->
     <script src="components/footer.js" type="text/javascript" defer></script>
     <!-- Other Scripts -->
@@ -77,7 +79,7 @@
                 </div>
         </div>
         <div class="col-md-6 how-img">
-            <img src="../images/Landing.png" class="img-fluid"/>
+            <img src="../images/Landing.png" class="img-fluid"data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1500" />
         </div>
     </section>
 
@@ -86,11 +88,11 @@
 
 <!-- Features -->
     <section id="features" class="row align-items-center">
-    <div class="container my-4 text-center">
-    <div class="row">
+    <div class="container text-center">
+    <div class="row" data-aos="fade-left" data-aos-delay="50" data-aos-duration="1500">
         <!-- First Row (Image on the Right) -->
-        <div class="col-md-6 mb-5">
-            <img src="../images/Automate_Analyzer.png" class="img-fluid">
+        <div class="col-md-6 mb-5 p-5">
+            <img src="../images/Automate_Analyzer.png" class="fadeInDown reduce-img img-fluid">
         </div>
         <div class="col-md-6 order-md-1 text-lg-left align-self-center">
             <h2>Classify Product Review into Sentiment Categories</h2><br>
@@ -98,10 +100,10 @@
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mt-4" data-aos="fade-right" data-aos-delay="50" data-aos-duration="1500">
         <!-- Second Row (Image on the Left) -->
-        <div class="col-md-6 order-md-2 mb-5">
-            <img src="../images/Streamline_Input.png" class="img-fluid">
+        <div class="col-md-6 order-md-2 mb-5 p-5">
+            <img src="../images/Streamline_Input.png" class="reduce-img img-fluid">
         </div>
         <div class="col-md-6 text-lg-right align-self-center">
             <h2>Streamline User Input</h2><br>
@@ -109,10 +111,10 @@
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mt-4" data-aos="fade-left" data-aos-delay="50" data-aos-duration="1500">
         <!-- Third Row (Image on the Right) -->
-        <div class="col-md-6 mb-5">
-            <img src="../images/Overall_Analysis.png" class="img-fluid">
+        <div class="col-md-6 mb-5 p-5">
+            <img src="../images/Overall_Analysis.png" class="reduce-img img-fluid">
         </div>
         <div class="col-md-6 order-md-1 text-lg-left align-self-center">
             <h2>Overall Product Analysis</h2><br>
@@ -133,7 +135,7 @@
             <div class="col-md-8">
                 <img src="../images/Purpose_Top_Manager.png" alt="Centered Image" class="img-fluid mb-3">
             </div>
-            <div class="col-md-12 text-center">
+            <div class="text-center ml-5 mr-5 pl-lg-5 pr-lg-5">
                 <p>
                     The thesis tackles the challenge of handling a vast number of online product reviews, which can be a daunting and laborious task when performed manually.
                 </p>
@@ -165,7 +167,7 @@
         <br>
 
         <!-- Third Section -->
-        <div class="row">
+        <div class="row pb-5">
             <div class="col-md-4">
                 <div class="image-frame">
                     <img src="../images/Sentivm-On.png" class="img-fluid" alt="Bawalan's Picture">
@@ -202,7 +204,7 @@
         </div>
     </div>
     </section>
-    <footer-component></footer-component>
+    <footer-component/>
 </div>
 
 <script>
@@ -211,5 +213,12 @@
         $('body').scrollspy({ target: '#navbarNav' });
     });
 </script>
+
+<!-- AOS Script -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
 </body>
 </html>

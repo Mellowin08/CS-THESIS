@@ -1,4 +1,5 @@
 code/__pycache__/
 machine_learning/models/
 machine_learning/datasets/
-
+code/commit_log.txt
+machine_learning/.ipynb_checkpoints/
