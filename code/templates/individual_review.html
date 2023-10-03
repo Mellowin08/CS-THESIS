@@ -2,8 +2,47 @@
 <html lang="en">
 <head>
     <style>
+        :root {
+	    --color-navyblue: #0E1D34;
+	    --color-highlight: #1E63B2;
+	    --color-black: #000208;
+	    --color-periwinkle: #A3C6EE;
+	    --color-fadedwhite: hsla(0, 0%, 100%, 0.20);
+        --font-base: 'Inter';
+        }
         #analyzer {
             margin-top: 125px !important;
+        }
+        #clearButton {
+            background-color: white;
+            border-width: 2px;
+            border-color: var(--color-navyblue);
+            color: var(--color-navyblue);
+        }
+        #predictButton {
+            background-color: var(--color-navyblue);
+            border-width: 2px;
+            border-color: var(--color-navyblue);
+            color: white;
+        }
+        #predictButton:hover {
+            background-color: var(--color-highlight);
+            border-color: var(--color-highlight);
+        }
+        #clearButton:hover {
+            background-color: var(--color-highlight);
+            border-color: var(--color-navyblue);
+            color: var(--color-navyblue);
+        }
+        #Sentivm{
+            width: 50%;
+            padding: 10px;
+        }
+        @media (max-width: 700px) {
+            #Sentivm{
+            width: 80%;
+            padding: 10px;
+            }
         }
     </style>
     <meta charset="UTF-8">
@@ -31,7 +70,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="pl-5 pr-5 navbar navbar-expand-lg align-items-center navbar-dark fixed-top">
+    <nav style="background-color: #0E1D34;" class="pl-5 pr-5 navbar navbar-expand-lg align-items-center navbar-dark fixed-top">
         <a class="navbar-brand" href="index.html">RevU’s</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -55,7 +94,73 @@
             </ul>
         </div>
     </nav>
+    <!-- Analyzer -->
+    <div id="analyzer" class="m-5 pl-3 pr-3">
+            <h2 class="text-center">Individual Product Review Classifier</h1>
+                <div class="row m-3">
+                    <div class="col-md-6">
+                        <form id="reviewForm">  
+                            <div class="form-group">
+                                <label for="review">Enter your review:</label>
+                                <textarea id="review" class="form-control autosize" style="border-width: 2px; border-color: var(--color-navyblue); text-align: left;" rows="3" cols="5" maxlength="500"></textarea>
+                                <span id="review-count" style="  display: block; text-align: right;">0/500 character limit</span>
+                                <button type="button" class="btn btn-danger" id="clearButton">Clear</button>
+                                <button type="button" class="btn btn-primary" id="predictButton">Predict</button>    
+                        </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center mt-2" id="result">
+                            <img id="Sentivm" src="../images/Sentivm-Off.png" alt="predictive analytics">
+                            <div class="text-center mt-2" id="result">
+                                <span class="prediction-text" id="predictionResult"></span>
+                                <!-- <p><strong>Negative Confidence (%):</strong> <span id="negativeConfidence"></span></p>
+                                <p><strong>Neutral Confidence (%):</strong> <span id="neutralConfidence"></span></p>
+                                <p><strong>Positive Confidence (%):</strong> <span id="positiveConfidence"></span></p> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
+    <script>
+        // Character Limit JS
+        var textArea = document.getElementById("review");
+        var characterCount = document.getElementById("review-count");
 
+        textArea.addEventListener("input", function() {
+        characterCount.textContent = textArea.value.length + "/" + textArea.maxLength + " character limit";
+        });
+        // Predictor JS
+        autosize(document.getElementById('review'));
+        
+        document.getElementById('clearButton').addEventListener('click', function() {
+            document.getElementById('review').value = '';
+            autosize.update(document.getElementById('review'));
+            document.getElementById('predictionResult').textContent = '';
+            document.getElementById('predictionResult').textContent = '';
+            document.getElementById('negativeConfidence').textContent = '';
+            document.getElementById('neutralConfidence').textContent = '';
+            document.getElementById('positiveConfidence').textContent = '';
+        });
+    
+        document.getElementById('predictButton').addEventListener('click', function() {
+            const review = document.getElementById('review').value;
+            
+            $.ajax({
+                type: 'POST',
+                url: '/predict',
+                data: { review: review },
+                success: function(result) {
+                    const [sentiment, negativeConfidence, neutralConfidence, positiveConfidence] = result.split(',');
+                    document.getElementById('predictionResult').textContent = sentiment;
+                    document.getElementById('negativeConfidence').textContent = negativeConfidence + '%';
+                    document.getElementById('neutralConfidence').textContent = neutralConfidence + '%';
+                    document.getElementById('positiveConfidence').textContent = positiveConfidence + '%';
+                }
+            });
+        });
+    </script>
 <footer-component></footer-component>
 </body>
 </html>
