@@ -38,6 +38,9 @@
             width: 50%;
             padding: 10px;
         }
+        #cdlevel {
+            font-size: 24px !important:
+        }
         @media (max-width: 700px) {
             #Sentivm{
             width: 80%;
@@ -110,13 +113,23 @@
                         </form>
                     </div>
                     <div class="col-md-6">
-                        <div class="text-center mt-2" id="result">
+                        <div class="text-center flex-column mt-2" id="result">
                             <img id="Sentivm" src="../static/images/Sentivm-Off.png" alt="predictive analytics">
                             <div class="text-center mt-2" id="result">
-                                <span class="prediction-text" id="predictionResult"></span>
-                                <p><strong>Negative Confidence (%):</strong> <span id="negativeConfidence"></span></p>
-                                <p><strong>Neutral Confidence (%):</strong> <span id="neutralConfidence"></span></p>
-                                <p><strong>Positive Confidence (%):</strong> <span id="positiveConfidence"></span></p>
+                                <h2 class="prediction-text" id="predictionResult"></h2>
+                                <h4 id="cdlevel" style="display: none;"> Confidence Level: </h4>
+                                <div class="d-flex justify-content-center">
+                                    <p class="pred-left text-center mr-5">
+                                        <span id="lpred-label"></span><br>
+                                        <span id="lpred-value"></span>
+                                    </p>
+                                    <h1 id="prediction-score" class="mt-2 ml-5 mr-5"></h1>
+                                    <p class="pred-right text-center ml-5">
+                                        <span id="rpred-label"></span><br>
+                                        <span id="rpred-value"></span>
+                                    </p>
+                                    </center>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,6 +137,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
     <script>
+        var cdlevelElement = document.getElementById('cdlevel');
         // Character Limit JS
         var textArea = document.getElementById("review");
         var characterCount = document.getElementById("review-count");
@@ -135,10 +149,16 @@
         autosize(document.getElementById('review'));
         // Clear Button JS
         document.getElementById('clearButton').addEventListener('click', function() {
+            document.getElementById('Sentivm').src = '../static/images/Sentivm-On.png';
             document.getElementById('review').value = '';
+            cdlevelElement.style.display = 'none';
             autosize.update(document.getElementById('review'));
             document.getElementById('predictionResult').textContent = '';
-            document.getElementById('predictionResult').textContent = '';
+            document.getElementById('prediction-score').textContent = '';
+            document.getElementById('lpred-label').textContent = '';
+            document.getElementById('lpred-value').textContent = '';
+            document.getElementById('rpred-label').textContent = '';
+            document.getElementById('rpred-value').textContent = '';
             document.getElementById('negativeConfidence').textContent = '';
             document.getElementById('neutralConfidence').textContent = '';
             document.getElementById('positiveConfidence').textContent = '';
@@ -152,10 +172,93 @@
                 data: { review: review },
                 success: function(result) {
                     const [sentiment, negativeConfidence, neutralConfidence, positiveConfidence] = result.split(',');
-                    document.getElementById('predictionResult').textContent = sentiment;
-                    document.getElementById('negativeConfidence').textContent = negativeConfidence + '%';
-                    document.getElementById('neutralConfidence').textContent = neutralConfidence + '%';
-                    document.getElementById('positiveConfidence').textContent = positiveConfidence + '%';
+
+                    document.getElementById('predictionResult').textContent = sentiment.toUpperCase();
+                    cdlevelElement.style.display = 'block';
+                    var svm_img = document.getElementById('Sentivm');
+                    var predictionScore = document.getElementById('prediction-score');
+                    var lowestLabel = document.getElementById('lpred-label');
+                    var lowestScore = document.getElementById('lpred-value');
+                    var secondLabel = document.getElementById('rpred-label');
+                    var secondScore = document.getElementById('rpred-value');
+
+                    
+                    let hvalue, svalue, lvalue;
+                    let hLabel, sLabel, lLabel;
+
+                    switch (sentiment) {
+                        case 'Positive':
+                            svm_img.src = '../static/images/Sentivm-Positive.png';
+                            hvalue = positiveConfidence;
+                            hLabel = 'POSITIVE';
+
+                            if (neutralConfidence >= negativeConfidence) {
+                                svalue = neutralConfidence;
+                                sLabel = 'NEUTRAL';
+                            } else {
+                                svalue = negativeConfidence;
+                                sLabel = 'NEGATIVE';
+                            }
+
+                            if (neutralConfidence < negativeConfidence) {
+                                lvalue = neutralConfidence;
+                                lLabel = 'NEUTRAL';
+                            } else {
+                                lvalue = negativeConfidence;
+                                lLabel = 'NEGATIVE';
+                            }
+                            break;
+
+                        case 'Neutral':
+                            svm_img.src = '../static/images/Sentivm-Neutral.png';
+                            hvalue = neutralConfidence;
+                            hLabel = 'NEUTRAL';
+
+                            if (positiveConfidence >= negativeConfidence) {
+                                svalue = positiveConfidence;
+                                sLabel = 'POSITIVE';
+                            } else {
+                                svalue = negativeConfidence;
+                                sLabel = 'NEGATIVE';
+                            }
+
+                            if (positiveConfidence < negativeConfidence) {
+                                lvalue = positiveConfidence;
+                                lLabel = 'POSITIVE';
+                            } else {
+                                lvalue = negativeConfidence;
+                                lLabel = 'NEGATIVE';
+                            }
+                            break;
+
+                        case 'Negative':
+                            svm_img.src = '../static/images/Sentivm-Negative.png';
+                            hvalue = negativeConfidence;
+                            hLabel = 'NEGATIVE';
+
+                            if (positiveConfidence >= neutralConfidence) {
+                                svalue = positiveConfidence;
+                                sLabel = 'POSITIVE';
+                            } else {
+                                svalue = neutralConfidence;
+                                sLabel = 'NEUTRAL';
+                            }
+
+                            if (positiveConfidence < neutralConfidence) {
+                                lvalue = positiveConfidence;
+                                lLabel = 'POSITIVE';
+                            } else {
+                                lvalue = neutralConfidence;
+                                lLabel = 'NEUTRAL';
+                            }
+                            break;
+                    }
+                    
+                    predictionScore.textContent = hvalue + '%';
+                    lowestLabel.textContent = lLabel;
+                    lowestScore.textContent = lvalue + "%";
+                    secondLabel.textContent = sLabel;
+                    secondScore.textContent = svalue + "%";
                 }
             });
         });
