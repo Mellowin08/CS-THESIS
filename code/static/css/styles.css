@@ -209,7 +209,7 @@ h1 {
 #lpred-value,
 #rpred-value {
     font-size: 30px;
-    color: #A3C6EE;
+    color: #1E63B2;
 }
 /*Meet the Proponents*/
 .smaller-title {
@@ -227,6 +227,11 @@ footer {
     color: white;
     text-decoration: none;
 }
+
+/* color changing when running */
+.color-change {
+    background-color: #A3C6EE;
+  }
 
 @media (max-width: 700px) {
     /* Text Sizing adjustment on small screens */

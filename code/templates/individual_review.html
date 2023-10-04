@@ -41,6 +41,12 @@
         #cdlevel {
             font-size: 24px !important:
         }
+        /* footer stay bottom always */
+        footer-component {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        }
         @media (max-width: 700px) {
             #Sentivm{
             width: 80%;
@@ -137,6 +143,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
     <script>
+        // Confidince level text gl variable for hiding(off & clear) and showing(predict)
         var cdlevelElement = document.getElementById('cdlevel');
         // Character Limit JS
         var textArea = document.getElementById("review");
@@ -149,9 +156,11 @@
         autosize(document.getElementById('review'));
         // Clear Button JS
         document.getElementById('clearButton').addEventListener('click', function() {
-            document.getElementById('Sentivm').src = '../static/images/Sentivm-On.png';
+            document.body.classList.add('color-change');
+            document.documentElement.style.backgroundColor = '#A3C6EE';
+            document.getElementById('Sentivm').src = '../static/images/Sentivm-On.png'; // once you type and then clear will show on 
             document.getElementById('review').value = '';
-            cdlevelElement.style.display = 'none';
+            cdlevelElement.style.display = 'none'; // hide confidence level text
             autosize.update(document.getElementById('review'));
             document.getElementById('predictionResult').textContent = '';
             document.getElementById('prediction-score').textContent = '';
@@ -172,17 +181,21 @@
                 data: { review: review },
                 success: function(result) {
                     const [sentiment, negativeConfidence, neutralConfidence, positiveConfidence] = result.split(',');
-
+                    document.body.classList.add('color-change');
+                    document.documentElement.style.backgroundColor = '#A3C6EE';
                     document.getElementById('predictionResult').textContent = sentiment.toUpperCase();
-                    cdlevelElement.style.display = 'block';
-                    var svm_img = document.getElementById('Sentivm');
-                    var predictionScore = document.getElementById('prediction-score');
-                    var lowestLabel = document.getElementById('lpred-label');
+                    cdlevelElement.style.display = 'block'; // show confidence level text
+                    var svm_img = document.getElementById('Sentivm'); // for choosing image in major senti
+                    var predictionScore = document.getElementById('prediction-score'); // major senti score
+                    var lowestLabel = document.getElementById('lpred-label'); 
                     var lowestScore = document.getElementById('lpred-value');
                     var secondLabel = document.getElementById('rpred-label');
                     var secondScore = document.getElementById('rpred-value');
 
                     
+                    /* confidence level ranking who the center and right and left also
+                    to determine major sentimet image */
+
                     let hvalue, svalue, lvalue;
                     let hLabel, sLabel, lLabel;
 
@@ -254,6 +267,7 @@
                             break;
                     }
                     
+                    // after the ranking determine proceed to give the text in html element
                     predictionScore.textContent = hvalue + '%';
                     lowestLabel.textContent = lLabel;
                     lowestScore.textContent = lvalue + "%";
