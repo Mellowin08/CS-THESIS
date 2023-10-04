@@ -28,6 +28,14 @@ Additionally, a Colab notebook has been provided, allowing you to customize your
 
 After obtaining the dataset file, please put it on /CS-THESIS/data/raw_data/
 
+### Local Web App
+You can run the web application locally.
+```bash
+python code/web.py
+```
+Make sure to download the joblib files too.
+
+
 ## Data Source
 
 The dataset used in this project was obtained from the [Amazon Review Data (2018)](https://nijianmo.github.io/amazon/index.html#subsets) generously provided by Jianmo Ni, UCSD.
