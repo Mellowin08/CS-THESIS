@@ -31,4 +31,6 @@ def consolidated_reviews():
     return render_template('consolidated_reviews.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+# palitan nyo lang ip address dito na nakassign sa pc nyo para maacess sa mobile or tablets
+# then type nyo sa web browser nyo sa phone/table ex. "192.168.1.15:5000"
+    app.run(debug=True, host='192.168.1.15', port=5000)

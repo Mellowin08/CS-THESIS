@@ -41,12 +41,13 @@
         #cdlevel {
             font-size: 24px !important:
         }
-        /* footer stay bottom always */
+        /* footer stay bottom always 
         footer-component {
         position: fixed;
         bottom: 0;
-        width: 100%;
+        width: 100%; 
         }
+        */
         @media (max-width: 700px) {
             #Sentivm{
             width: 80%;
@@ -168,9 +169,6 @@
             document.getElementById('lpred-value').textContent = '';
             document.getElementById('rpred-label').textContent = '';
             document.getElementById('rpred-value').textContent = '';
-            document.getElementById('negativeConfidence').textContent = '';
-            document.getElementById('neutralConfidence').textContent = '';
-            document.getElementById('positiveConfidence').textContent = '';
         });
         // Predict Button JS
         document.getElementById('predictButton').addEventListener('click', function() {
