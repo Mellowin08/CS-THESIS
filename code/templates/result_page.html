@@ -1,18 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="[path-to-bootstrap-css]"> <!-- Add the path to Bootstrap CSS -->
     <style>
-        .major-image {
+
+       .major-image {
             display: block;
             margin: 0 auto;
             text-align: center;
         }
+
+#results_page {
+    background-color: var(--color-navyblue);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.left, .center, .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#analyze2-btn {
+    border-width: 2px;
+    font-weight: 500;
+    font-size: 17px;
+    background-color: var(--color-periwinkle);
+    color:#0E1D34;
+    border-color: transparent;
+}
+#analyze2-btn:hover,
+#analyze2-btn:active {
+    border-width: 2px;
+    background-color:#1E63B2;
+    color:white;
+    border-color: transparent;
+}
+
+h3 {
+    color: #1E63B2;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #1E63B2;
+}
+
     </style>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="[path-to-bootstrap-css]"> <!-- Add the path to Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -22,23 +63,9 @@
     <title>Analysis Results</title>
 </head>
 <body>
-    <div class="container">
-        
-        <div class="col-md-4 hsentiment d-flex justify-content-center align-items-center flex-column">
-            {% if hlabel == 'Negative' %}
-                <img src="/static/images/Sentivm-Negative.png" class="major-image" alt="Negative Sentiment Image">
-            {% elif hlabel == 'Neutral' %}
-                <img src="/static/images/Sentivm-Neutral.png" class="major-image" alt="Neutral Sentiment Image">
-            {% elif hlabel == 'Positive' %}
-                <img src="/static/images/Sentivm-Positive.png" class="major-image" alt="Positive Sentiment Image">
-            {% endif %}
-            
-            <h2>{{ hlabel }}</h2>
-            <p>{{ hvalue }} out of {{ total_count }}</p>
-        </div>
-        
+    <div "class="container" id="results_page">
 
-            <div class="col-md-4 ssentiment">
+            <div class="left col-md-4 ssentiment">
                 <ul>
                     <h2>Top {{ hlabel }} Reviews</h2>
                     {% if hlabel == 'Positive' %}
@@ -57,7 +84,27 @@
                 </ul>
             </div> 
 
-            <div class="col-md-4 ssentiment">
+        <div class="center col-md-4 hsentiment d-flex justify-content-center align-items-center flex-column">
+            <h2 class="text-center">Consolidated Product Reviews Analyzer</h2><br>
+            <h3 class="text-center">ANALYSIS RESULT</h3><br>
+            {% if hlabel == 'Negative' %}
+                <img src="/static/images/Sentivm-Negative.png" class="major-image" alt="Negative Sentiment Image">
+            {% elif hlabel == 'Neutral' %}
+                <img src="/static/images/Sentivm-Neutral.png" class="major-image" alt="Neutral Sentiment Image">
+            {% elif hlabel == 'Positive' %}
+                <img src="/static/images/Sentivm-Positive.png" class="major-image" alt="Positive Sentiment Image">
+            {% endif %}
+            
+            <h2>{{ hlabel }}</h2>
+            <p>{{ hvalue }} out of {{ total_count }}</p>
+
+                 <div class="col-5 m-2">
+                    <a id="analyze2-btn" class="btn btn-primary btn-lg" href="consolidated_reviews.html">Analyze Another</a>
+                </div>
+        </div>
+        
+
+            <div class="right col-md-4 ssentiment">
                 <h2>{{ slabel }}</h2>
                 <p>{{ svalue }} out of {{ total_count }}</p>
                 {% if slabel == 'Positive' %}
@@ -73,9 +120,9 @@
                         <p>{{ phrase }}</p>
                     {% endfor %}
                 {% endif %}
-            </div>
 
-            <div class="col-md-4 lsentiment">
+                <br>
+
                 <h2>{{ llabel }}</h2>
                 <p>{{ lvalue }} out of {{ total_count }}</p>
                 {% if llabel == 'Positive' %}
@@ -92,10 +139,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-        </div>
-    </div>
-    <div class="col-5 m-2">
-        <a id="test-btn" class="btn btn-primary btn-lg" href="consolidated_reviews.html">Analyze Another</a>
+
     </div>
 </body>
 </html>
