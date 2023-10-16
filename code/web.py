@@ -50,6 +50,31 @@ def extract_phrases(text, min_length=4, max_length=6):
 
     return phrases
 
+def extract_phrases_nopunc(text):
+    highlighted_phrases = []
+
+    # Define the parts of speech that are typically part of phrases
+    phrase_pos_tags = {"ADJ", "NOUN", "ADV"}
+
+    doc = nlp(text)
+
+    for i, token in enumerate(doc):
+        if token.pos_ in phrase_pos_tags:
+            phrase = token.text
+            for j in range(1, 6):
+                if i + j < len(doc):
+                    next_token = doc[i + j]
+                    if next_token.pos_ in phrase_pos_tags:
+                        phrase += " " + next_token.text
+                    else:
+                        break
+                else:
+                    break
+            if 3 <= len(phrase.split()) <= 6:
+                highlighted_phrases.append(phrase)
+
+    return highlighted_phrases
+
 def analyze_sentiment(text):
     analysis = TextBlob(text)
     sentiment = analysis.sentiment.polarity
@@ -98,7 +123,7 @@ def consolidate_csv():
                     predicted_sentiment, sentiment_confidence = predict_sentiment(review)
 
                     # Extract and analyze phrases
-                    review_phrases = extract_phrases(review)
+                    review_phrases = list(extract_phrases(review)) + extract_phrases_nopunc(review)
 
                     for phrase in review_phrases:
                         phrase_sentiment = analyze_sentiment(phrase)
