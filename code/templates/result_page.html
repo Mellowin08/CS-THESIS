@@ -7,6 +7,7 @@
             display: block;
             margin: 0 auto;
             text-align: center;
+            width: 100% !important
         }
 
 #results_page {
@@ -88,11 +89,11 @@ h3 {
             <h2 class="text-center">Consolidated Product Reviews Analyzer</h2><br>
             <h3 class="text-center">ANALYSIS RESULT</h3><br>
             {% if hlabel == 'Negative' %}
-                <img src="/static/images/Sentivm-Negative.png" class="major-image" alt="Negative Sentiment Image">
+                <img src="/static/images/Sentivm-Negative.png" class="major-image p-5" alt="Negative Sentiment Image">
             {% elif hlabel == 'Neutral' %}
-                <img src="/static/images/Sentivm-Neutral.png" class="major-image" alt="Neutral Sentiment Image">
+                <img src="/static/images/Sentivm-Neutral.png" class="major-image p-5" alt="Neutral Sentiment Image">
             {% elif hlabel == 'Positive' %}
-                <img src="/static/images/Sentivm-Positive.png" class="major-image" alt="Positive Sentiment Image">
+                <img src="/static/images/Sentivm-Positive.png" class="major-image p-5" alt="Positive Sentiment Image">
             {% endif %}
             
             <h2>{{ hlabel }}</h2>

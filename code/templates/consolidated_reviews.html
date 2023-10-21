@@ -3,35 +3,30 @@
     
 <head>
     <style>
-        html {
+        body, html {
             background-color: var(--color-navyblue) !important;
+            color: white !important;
         }
         #upload-container {
-            border: 2px dashed #cccccc;
+            border: 4px dashed #cccccc;
             text-align: center;
-            width: 550px; /* Set the width to 150px */
-            height: 500px; /* Set the height to 150px */
+            width: 600px;
+            height: 300px;
             cursor: pointer;
-            background-color: #f9f9f9;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
-
         #upload-container:hover {
             border-color: #666666;
         }
-
-        #upload-input {
-            display: none;
-        }
-
-        #uploaded-csv {
-            display: none;
-        }
-        #text {
-            margin-top: 230px;
-        }
         #analyze-button {
-            margin-top: 250px;
+            margin-top: 50px;
+            font-weight: bold;
+        }
+        @media (max-width: 592px) {
+        #upload-container {
+            width: 220px;
+            height: 350px;
+        }
         }
     </style>
     <meta charset="UTF-8">
@@ -83,46 +78,64 @@
         </div>
     </nav>
     
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="container d-flex flex-column row align-items-center p-5 mx-auto">
+        <h2 class="text-center p-2" style="color: #A3C6EE">Consolidated Product Review Analyzer</h2>
         <form id="upload-form" action="/consolidate_csv" method="post" enctype="multipart/form-data">
             <label for="upload-input" class="upload-label">
-                <div id="upload-container">
-                    <div id="uploaded-csv">
+                <div id="upload-container" class="d-flex flex-column align-items-center justify-content-center">
+                    <div id="pre-upload">
+                        <img src="../static/images/csv_upload-icon.png" width="100" class="m-3">
+                        <p style="font-weight: bold">Choose a CSV file <br> <span style="font-weight: normal;">or</span> <br> Drop it here</p>
+                    </div>
+                    <input type="file" name="file" id="upload-input" accept=".csv" class="d-none">
+                    <div id="uploaded-csv" style="display: none;">
+                        <img src="../static/images/Sentivm-Product.png" width="100" class="m-3">
                         <p>Selected CSV File:</p>
                         <div id="file-name-box"></div>
-                        <a id="download-link" href="#" download>Download</a> <!-- Download link -->
-                    </div>
-                    <p id="text">Drag & Drop or Click to Upload CSV</p>
-                    <input type="file" name="file" id="upload-input" accept=".csv" class="d-none">
-                    <div class="d-flex justify-content-center"> <!-- Center the button -->
-                        <button id="analyze-button" type="submit" class="btn btn-primary" id="predictButton">Consolidate</button>
+                        <button type="button" id="reset-button" class="btn btn-secondary m-3">Reset</button>
                     </div>
                 </div>
             </label>
+            <div class="text-center"><button id="analyze-button" type="submit" class="btn btn-primary m-3" id="predictButton">Analyze</button></div>
         </form>
     </div>
+    <footer-component></footer-component>
     
-
     <!-- Include Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <script>
-        // Initialize Bootstrap dropdowns
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
-
-        document.getElementById('upload-input').addEventListener('change', function() {
-            const fileNameBox = document.getElementById('file-name-box');
-            const selectedFile = this.files[0];
-            if (selectedFile) {
-                fileNameBox.textContent = selectedFile.name; // Update the content of the <div> with the file name
-            } else {
-                fileNameBox.textContent = ""; // Clear the file name when no file is selected
+    // Initialize Bootstrap dropdowns
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+    
+    // Handle file input change
+    document.getElementById('upload-input').addEventListener('change', function () {
+        const fileNameBox = document.getElementById('file-name-box');
+        const selectedFile = this.files[0];
+        if (selectedFile) {
+            fileNameBox.textContent = selectedFile.name;
+            document.getElementById('pre-upload').style.display = 'none'; 
+            document.getElementById('uploaded-csv').style.display = 'block';
+        } else {
+            fileNameBox.textContent = "";
+            document.getElementById('pre-upload').style.display = 'block'; 
+            document.getElementById('uploaded-csv').style.display = 'none'; 
             }
-        });
+    });
+    
+    // Handle reset button click
+    document.getElementById('reset-button').addEventListener('click', function () {
+        const uploadInput = document.getElementById('upload-input');
+        uploadInput.value = ''; // Clear the file input
+        document.getElementById('pre-upload').style.display = 'block'; // Show pre-upload
+        document.getElementById('uploaded-csv').style.display = 'none'; // Hide uploaded-csv
+        document.getElementById('file-name-box').textContent = ''; // Clear the file name
+    });
     </script>
-<footer-component></footer-component>
+    
 </body>
 </html>
