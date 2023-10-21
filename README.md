@@ -8,32 +8,28 @@ It includes a web application for user interaction and sentiment analysis of pro
 Follow these instructions to set up and run the system locally.
 
 ### Prerequisites
-
 - Python 3.11.4
   - Required Python libraries (listed in `requirements.txt`)
+- SVM Model
+- Model Dependency
+  - SpaCy's NLP model, en_core_web_sm
 
 ### Installation
-1. Clone the Repository `gh repo clone Mellowin08/CS-THESIS`
-2. Install the required dependencies
+1. <b>Clone the Repository:</b> `gh repo clone Mellowin08/CS-THESIS`
+2. <b>Install the required dependencies:</b>
 ```bash
 pip install -r requirements.txt
 ```
-
-### Dataset
-See Data Source section for the details of the dataset used in this project.
-
-This project used a dataset that has a combination of non-digital product reviews (maximum of 100,000 rows for each category). If you want it, you can access it here: [amazon_reviews.csv](https://drive.google.com/file/d/1RfLyvBELQZ9aAbayx3O_iK5k23td5jjt/). 
-
-Additionally, a Colab notebook has been provided, allowing you to customize your dataset combination. You can access it here: [Custom Dataset Selection.ipynb](https://colab.research.google.com/drive/1UxbcRmVtLWTrf50aL3YOTFiiMT2glOfC?usp=sharing).
-
-After obtaining the dataset file, please put it on /CS-THESIS/data/raw_data/
-
-### Local Web App
-You can run the web application locally.
+3. <b> Obtain the SVM Model.</b>
+    - You can use this project's SVM model. ([TF-IDF Vectorizer](https://drive.google.com/file/d/1EzHFwNxd1FXUvZ8sArzX0moWrhA0fdHP/view?usp=drive_link) and [SVM Classifier](https://drive.google.com/file/d/1ABWUGve7-HnrITGXyiQ2GpGj0yEXaOxm/view?usp=drive_link)).
+    Save the joblib files in `machine_learning/models/` folder
+    - If you want to make your own model, You may use the provided jupyter notebooks in the machine learning folder. Please check the README file in the machine_learning folder for the complete instructions.
+4. <b>Model Dependency: </b> In order to perform a consolidated analysis with our tool, you will need to download the 'en_core_web_sm' SpaCy model. This model provides essential linguistic information for various natural language processing tasks. In the website's case, the model is used to analyze the what are the top negative,positive, and neutral phases.
+`python -m spacy download en_core_web_sm`
+5. <b> Running the Local Web app: </b>You can now run the web application locally.
 ```bash
 python code/web.py
 ```
-Make sure to download the joblib files too.
 
 
 ## Data Source
