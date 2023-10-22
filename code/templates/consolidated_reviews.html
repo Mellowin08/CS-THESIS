@@ -112,29 +112,38 @@
         $('.dropdown-toggle').dropdown();
     });
     
-    // Handle file input change
-    document.getElementById('upload-input').addEventListener('change', function () {
-        const fileNameBox = document.getElementById('file-name-box');
-        const selectedFile = this.files[0];
+    const uploadInput = document.getElementById('upload-input');
+    const preUpload = document.getElementById('pre-upload');
+    const uploadedCSV = document.getElementById('uploaded-csv');
+    const fileNameBox = document.getElementById('file-name-box');
+    const uploadContainer = document.getElementById('upload-container');
+
+    function updateUI(selectedFile) {
         if (selectedFile) {
             fileNameBox.textContent = selectedFile.name;
-            document.getElementById('pre-upload').style.display = 'none'; 
-            document.getElementById('uploaded-csv').style.display = 'block';
+            preUpload.style.display = 'none';
+            uploadedCSV.style.display = 'block';
+            uploadContainer.style.border = '4px solid blue';
         } else {
-            fileNameBox.textContent = "";
-            document.getElementById('pre-upload').style.display = 'block'; 
-            document.getElementById('uploaded-csv').style.display = 'none'; 
-            }
+            uploadInput.value = ''; // Clear the file input
+            fileNameBox.textContent = '';
+            preUpload.style.display = 'block';
+            uploadedCSV.style.display = 'none';
+            uploadContainer.style.border = '4px dashed #cccccc';
+        }
+    }
+
+    // Handle file input change
+    uploadInput.addEventListener('change', function () {
+        const selectedFile = this.files[0];
+        updateUI(selectedFile);
     });
-    
+
     // Handle reset button click
     document.getElementById('reset-button').addEventListener('click', function () {
-        const uploadInput = document.getElementById('upload-input');
-        uploadInput.value = ''; // Clear the file input
-        document.getElementById('pre-upload').style.display = 'block'; // Show pre-upload
-        document.getElementById('uploaded-csv').style.display = 'none'; // Hide uploaded-csv
-        document.getElementById('file-name-box').textContent = ''; // Clear the file name
+        updateUI(null); // Reset the UI
     });
+
     </script>
     
 </body>
