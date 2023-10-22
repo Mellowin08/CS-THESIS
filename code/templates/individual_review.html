@@ -114,8 +114,8 @@
                                 <label for="review">Enter your review:</label>
                                 <textarea id="review" class="form-control autosize" style="border-width: 2px; border-color: var(--color-navyblue); text-align: left;" rows="3" cols="5" maxlength="500"></textarea>
                                 <span id="review-count" style="  display: block; text-align: right;">0/500 character limit</span>
-                                <button type="button" class="btn btn-danger" id="clearButton">Clear</button>
-                                <button type="button" class="btn btn-primary" id="predictButton">Predict</button>    
+                                <button type="button" class="btn btn-danger" id="clearButton" disabled>Clear</button>
+                                <button type="button" class="btn btn-primary" id="predictButton" disabled>Predict</button>    
                         </div>
                         </form>
                     </div>
@@ -144,17 +144,33 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
     <script>
+
+        const reviewTextArea = document.getElementById('review');
+        const clearButton = document.getElementById('clearButton');
+        const predictButton = document.getElementById('predictButton');
+
+        // Add an input event listener to the text area
+        reviewTextArea.addEventListener('input', function () {
+            if (reviewTextArea.value.trim() !== '') {
+                clearButton.disabled = false;
+                predictButton.disabled = false;
+            } else {
+                clearButton.disabled = true; 
+                predictButton.disabled = true; 
+            }
+        });
+
         // Confidince level text gl variable for hiding(off & clear) and showing(predict)
         var cdlevelElement = document.getElementById('cdlevel');
         // Character Limit JS
         var textArea = document.getElementById("review");
         var characterCount = document.getElementById("review-count");
-
         textArea.addEventListener("input", function() {
-        characterCount.textContent = textArea.value.length + "/" + textArea.maxLength + " character limit";
+            characterCount.textContent = textArea.value.length + "/" + textArea.maxLength + " character limit";
         });
         // Autosizing JS
         autosize(document.getElementById('review'));
+
         // Clear Button JS
         document.getElementById('clearButton').addEventListener('click', function() {
             document.body.classList.add('color-change');
@@ -169,111 +185,53 @@
             document.getElementById('lpred-value').textContent = '';
             document.getElementById('rpred-label').textContent = '';
             document.getElementById('rpred-value').textContent = '';
+            document.getElementById('review-count').textContent = '0/500 character limit';
+            clearButton.disabled = true; 
+            predictButton.disabled = true; 
         });
+
         // Predict Button JS
         document.getElementById('predictButton').addEventListener('click', function() {
-            const review = document.getElementById('review').value;
-            $.ajax({
-                type: 'POST',
-                url: '/predict',
-                data: { review: review },
-                success: function(result) {
-                    const [sentiment, negativeConfidence, neutralConfidence, positiveConfidence] = result.split(',');
-                    document.body.classList.add('color-change');
-                    document.documentElement.style.backgroundColor = '#A3C6EE';
-                    document.getElementById('predictionResult').textContent = sentiment.toUpperCase();
-                    cdlevelElement.style.display = 'block'; // show confidence level text
-                    var svm_img = document.getElementById('Sentivm'); // for choosing image in major senti
-                    var predictionScore = document.getElementById('prediction-score'); // major senti score
-                    var lowestLabel = document.getElementById('lpred-label'); 
-                    var lowestScore = document.getElementById('lpred-value');
-                    var secondLabel = document.getElementById('rpred-label');
-                    var secondScore = document.getElementById('rpred-value');
+        const review = document.getElementById('review').value;
+        $.ajax({
+            type: 'POST',
+            url: '/predict',
+            data: { review: review },
+            success: function(result) {
+                const [sentiment, negativeConfidence, neutralConfidence, positiveConfidence] = result.split(',');
+                
+                // Set sentiment data and confidence levels in an array of objects
+                const sentiments = [
+                    { label: 'Positive', confidence: positiveConfidence },
+                    { label: 'Neutral', confidence: neutralConfidence },
+                    { label: 'Negative', confidence: negativeConfidence }
+                ];
 
-                    
-                    /* confidence level ranking who the center and right and left also
-                    to determine major sentimet image */
+                // Sort the array by confidence level in descending order
+                sentiments.sort((a, b) => b.confidence - a.confidence);
 
-                    let hvalue, svalue, lvalue;
-                    let hLabel, sLabel, lLabel;
+                // Set the major sentiment and confidence values
+                const majorSentiment = sentiments[0];
+                const secondSentiment = sentiments[1];
+                const lowestSentiment = sentiments[2];
 
-                    switch (sentiment) {
-                        case 'Positive':
-                            svm_img.src = '../static/images/Sentivm-Positive.png';
-                            hvalue = positiveConfidence;
-                            hLabel = 'POSITIVE';
+                // Update the UI based on the major sentiment
+                document.body.classList.add('color-change');
+                document.documentElement.style.backgroundColor = '#A3C6EE';
+                document.getElementById('predictionResult').textContent = sentiment.toUpperCase();
+                document.getElementById('cdlevel').style.display = 'block';
 
-                            if (neutralConfidence >= negativeConfidence) {
-                                svalue = neutralConfidence;
-                                sLabel = 'NEUTRAL';
-                            } else {
-                                svalue = negativeConfidence;
-                                sLabel = 'NEGATIVE';
-                            }
-
-                            if (neutralConfidence < negativeConfidence) {
-                                lvalue = neutralConfidence;
-                                lLabel = 'NEUTRAL';
-                            } else {
-                                lvalue = negativeConfidence;
-                                lLabel = 'NEGATIVE';
-                            }
-                            break;
-
-                        case 'Neutral':
-                            svm_img.src = '../static/images/Sentivm-Neutral.png';
-                            hvalue = neutralConfidence;
-                            hLabel = 'NEUTRAL';
-
-                            if (positiveConfidence >= negativeConfidence) {
-                                svalue = positiveConfidence;
-                                sLabel = 'POSITIVE';
-                            } else {
-                                svalue = negativeConfidence;
-                                sLabel = 'NEGATIVE';
-                            }
-
-                            if (positiveConfidence < negativeConfidence) {
-                                lvalue = positiveConfidence;
-                                lLabel = 'POSITIVE';
-                            } else {
-                                lvalue = negativeConfidence;
-                                lLabel = 'NEGATIVE';
-                            }
-                            break;
-
-                        case 'Negative':
-                            svm_img.src = '../static/images/Sentivm-Negative.png';
-                            hvalue = negativeConfidence;
-                            hLabel = 'NEGATIVE';
-
-                            if (positiveConfidence >= neutralConfidence) {
-                                svalue = positiveConfidence;
-                                sLabel = 'POSITIVE';
-                            } else {
-                                svalue = neutralConfidence;
-                                sLabel = 'NEUTRAL';
-                            }
-
-                            if (positiveConfidence < neutralConfidence) {
-                                lvalue = positiveConfidence;
-                                lLabel = 'POSITIVE';
-                            } else {
-                                lvalue = neutralConfidence;
-                                lLabel = 'NEUTRAL';
-                            }
-                            break;
-                    }
-                    
-                    // after the ranking determine proceed to give the text in html element
-                    predictionScore.textContent = hvalue + '%';
-                    lowestLabel.textContent = lLabel;
-                    lowestScore.textContent = lvalue + "%";
-                    secondLabel.textContent = sLabel;
-                    secondScore.textContent = svalue + "%";
-                }
-            });
+                // Update the UI elements with major, second, and lowest sentiments
+                document.getElementById('Sentivm').src = `../static/images/Sentivm-${majorSentiment.label}.png`;
+                document.getElementById('prediction-score').textContent = majorSentiment.confidence + '%';
+                document.getElementById('lpred-label').textContent = lowestSentiment.label;
+                document.getElementById('lpred-value').textContent = lowestSentiment.confidence + "%";
+                document.getElementById('rpred-label').textContent = secondSentiment.label;
+                document.getElementById('rpred-value').textContent = secondSentiment.confidence + "%";
+            }
         });
+    });
+
     </script>
 <footer-component></footer-component>
 </body>
