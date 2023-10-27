@@ -12,6 +12,12 @@
         }
         #analyzer {
             margin-top: 125px !important;
+            margin-bottom: 0px !important;
+        }
+        #review{
+            border-width: 2px; 
+            border-color: var(--color-navyblue); 
+            text-align: left;
         }
         #clearButton {
             background-color: white;
@@ -34,8 +40,17 @@
             border-color: var(--color-navyblue);
             color: var(--color-navyblue);
         }
+        .row.m-3 {
+            margin-bottom: 313px !important;
+            margin-left: 100px !important;
+        }
+
+        #result{
+            position: absolute !important;
+            margin-bottom: 223px !important;
+        }
         #Sentivm{
-            width: 50%;
+            width: 70%;
             padding: 10px;
         }
         #cdlevel {
@@ -50,9 +65,190 @@
         */
         @media (max-width: 700px) {
             #Sentivm{
-            width: 80%;
+            width: 100%;
             padding: 10px;
             }
+            .form-control.autosize{
+                margin-right: 150px !important;
+            }
+            .row.m-3 {
+                margin-left: 23px !important;
+            }
+            #review {
+                width: 380px;
+                height: 180px;
+                margin-left: -78px !important;
+                margin-right: 0px !important;
+                display: block !important;
+            }
+            #review-count{
+                margin-right: 35px;
+            }
+            .pred-left.text-center.mr-5{
+                margin: 0px !important;
+            }
+            .pred-right.text-center.ml-5{
+                margin: 0px !important;
+            }
+            #lpred-label, #lpred-value {
+                font-size: 25px !important;
+            }
+            #rpred-label, #rpred-value {
+                font-size: 25px !important;
+            }
+            .d-flex.justify-content-center {
+                position: absolute !important;
+                margin-left: -53px !important;
+            }
+            .py-4 {
+                position: absolute !important;
+                margin-top: 50px !important;
+            }
+        }
+        @media (max-width: 375px) {
+            #Sentivm{
+            width: 100%;
+            padding: 10px;
+            }
+            .form-control.autosize{
+                margin-right: 150px !important;
+            }
+            .row.m-3 {
+                margin-left: 23px !important;
+            }
+            #review {
+                width: 345px !important;
+                height: 170px !important;
+                margin-left: -88px !important;
+                margin-right: 0px !important;
+                display: block !important;
+            }
+            #review-count{
+                margin-right: 0px;
+                padding-right: 11px;
+            }
+            .pred-left.text-center.mr-5{
+                margin: 0px !important;
+            }
+            .pred-right.text-center.ml-5{
+                margin: 0px !important;
+            }
+            #prediction-score {
+                margin-right: 38px !important;
+            }
+            #lpred-label, #lpred-value {
+                font-size: 23px !important;
+            }
+            #rpred-label, #rpred-value {
+                font-size: 23px !important;
+            }
+            .d-flex.justify-content-center {
+                position: absolute !important;
+                margin-left: -73px !important;
+            }
+        }
+        @media (max-width: 390px){
+            #Sentivm{
+            width: 100%;
+            padding: 10px;
+            }
+            .form-control.autosize{
+                margin-right: 150px !important;
+            }
+            .row.m-3 {
+                margin-left: 23px !important;
+            }
+            #review {
+                width: 340px !important;
+                height: 200px;
+                margin-left: 0px !important;
+                margin-right: -10px !important;
+                display: block !important;
+            }
+            #review-count{
+                margin-right: 0px;
+                padding-right: 15px;
+            }
+            .pred-left.text-center.mr-5{
+                margin: 0px !important;
+            }
+            .pred-right.text-center.ml-5{
+                margin: 0px !important;
+            }
+            #prediction-score {
+                margin-right: 38px !important;
+            }
+            #result {
+                margin-left: -20px !important;
+            }
+            .d-flex.justify-content-center {
+                position: absolute !important;
+                margin-left: -53px !important;
+            }
+        } 
+        @media (max-width: 414px) {
+            #Sentivm{
+            width: 100%;
+            padding: 10px;
+            }
+            .form-control.autosize{
+                margin-right: 150px !important;
+            }
+            .row.m-3 {
+                margin-left: 23px !important;
+            }
+            #review {
+                width: 385px;
+                height: 180px;
+                margin-left: -83px !important;
+                margin-right: 0px !important;
+                display: block !important;
+            }
+            #review-count{
+                margin-right: 0px;
+                padding-right: 15px;
+            }
+            .pred-left.text-center.mr-5{
+                margin: 0px !important;
+            }
+            .pred-right.text-center.ml-5{
+                margin: 0px !important;
+            }
+            #prediction-score {
+                margin-right: 38px !important;
+            }
+            #result {
+                margin-left: -20px !important;
+            }
+            .d-flex.justify-content-center {
+                position: absolute !important;
+                margin-left: -53px !important;
+            }
+        }
+        @media (max-width: 360px) {
+            #Sentivm{
+            width: 100%;
+            padding: 10px;
+            }
+            .form-control.autosize{
+                margin-right: 150px !important;
+            }
+            .row.m-3 {
+                margin-left: 23px !important;
+            }
+            #review {
+                width: 345px !important;
+                height: 170px !important;
+                margin-left: -93px !important;
+                margin-right: 0px !important;
+                display: block !important;
+            }
+            #review-count{
+                margin-right: 0px;
+                padding-right: 0px;
+            }
+        }
+
         }
     </style>
     <meta charset="UTF-8">
@@ -112,7 +308,7 @@
                         <form id="reviewForm">  
                             <div class="form-group">
                                 <label for="review">Enter your review:</label>
-                                <textarea id="review" class="form-control autosize" style="border-width: 2px; border-color: var(--color-navyblue); text-align: left;" rows="3" cols="5" maxlength="500"></textarea>
+                                <textarea id="review" class="form-control autosize" rows="3" cols="5" maxlength="500"></textarea>
                                 <span id="review-count" style="  display: block; text-align: right;">0/500 character limit</span>
                                 <button type="button" class="btn btn-danger" id="clearButton" disabled>Clear</button>
                                 <button type="button" class="btn btn-primary" id="predictButton" disabled>Predict</button>    
@@ -122,7 +318,7 @@
                     <div class="col-md-6">
                         <div class="text-center flex-column mt-2" id="result">
                             <img id="Sentivm" src="../static/images/Sentivm-Off.png" alt="predictive analytics">
-                            <div class="text-center mt-2" id="result">
+                            <div class="text-center mt-2" id="result1">
                                 <h2 class="prediction-text" id="predictionResult"></h2>
                                 <h4 id="cdlevel" style="display: none;"> Confidence Level: </h4>
                                 <div class="d-flex justify-content-center">

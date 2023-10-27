@@ -307,7 +307,7 @@ footer {
     #test-btn {
         border-width: 1px;
         font-weight: 500;
-        font-size: 15px;
+        font-size: 15.5px;
         background-color: white;
         color:#0E1D34;
         border-color: transparent;
@@ -322,7 +322,7 @@ footer {
     
     #start-btn {
         font-weight: 500;
-        font-size: 15px;
+        font-size: 15.5px;
         background-color:#0E1D34;
         color:white;
         border-color: white;
