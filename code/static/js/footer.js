@@ -5,7 +5,7 @@ class Footer extends HTMLElement{
 
     connectedCallback() {
         this.innerHTML = `
-        <footer class="py-4">
+        <footer class="py-4" style="margin-top: auto; position: relative; bottom: 0; width: 100%;">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">

@@ -56,13 +56,6 @@
         #cdlevel {
             font-size: 24px !important;
         }
-        /* footer stay bottom always 
-        footer-component {
-        position: fixed;
-        bottom: 0;
-        width: 100%; 
-        }
-        */
         @media (max-width: 700px) {
             #Sentivm{
             width: 100%;
@@ -248,8 +241,6 @@
                 padding-right: 0px;
             }
         }
-
-        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -275,6 +266,18 @@
     <title>RevU's | Individual Analyzer</title>
 </head>
 <body>
+    <!-- Disclaimer Modal -->
+    <div id="disclaimerModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7);">
+        <div class="modal-content p-md-5" style="background-color: var(--color-periwinkle); margin: 10% auto; border: 1px solid #888; border-radius: 5px; max-width: 500px;">
+            <center>
+            <h2>Disclaimer</h2>
+                <p>Our machine learning model, which uses the Support Vector Machine (SVM) algorithm, is quite effective for classifying things. However, the model has its limitations. </p>
+                <p>It's optimized for English product reviews, so it might not work as well with reviews in other languages. It's also great with the basics, but might not always get slang or uncommon words due to training limitations. And when it comes to capturing emotions, especially the subtle ones or sarcasm, it might not be on the mark. </p>
+                <p>So, just keep in mind that while our model is handy, it's not perfect and might have its ups and downs depending on the language and the complexity of what it's analyzing.</p>
+            <button id="understandButton" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 0 auto;">I Understand</button>
+            </center>
+        </div>
+    </div>
     <!-- Navbar -->
     <nav style="background-color: #0E1D34;" class="pl-5 pr-5 navbar navbar-expand-lg align-items-center navbar-dark fixed-top">
         <a class="navbar-brand" href="index.html">RevU’s</a>
@@ -307,12 +310,17 @@
                     <div class="col-md-6">
                         <form id="reviewForm">  
                             <div class="form-group">
-                                <label for="review">Enter your review:</label>
+                                <h4><label for="review">Enter your review:</label></h4>
                                 <textarea id="review" class="form-control autosize" rows="3" cols="5" maxlength="500"></textarea>
                                 <span id="review-count" style="  display: block; text-align: right;">0/500 character limit</span>
-                                <button type="button" class="btn btn-danger" id="clearButton" disabled>Clear</button>
-                                <button type="button" class="btn btn-primary" id="predictButton" disabled>Predict</button>    
-                        </div>
+                                <button type="button" class="btn btn-danger" id="clearButton" disabled title="Ctrl+Enter">Clear</button>
+                                <button type="button" class="btn btn-primary" id="predictButton" disabled title="Enter">Predict</button>    
+                                <div id="shortcutLegend" class="mt-5">
+                                    <h5>Keyboard Shortcuts</h5>
+                                    <p><strong><em>Clear:</em></strong> Ctrl+Enter <br>
+                                    <strong><em>Predict:</em></strong> Enter</p>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="col-md-6">
@@ -340,14 +348,24 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
     <script>
-
-        const reviewTextArea = document.getElementById('review');
+        // Disclaimer modal
+        const modal = document.getElementById("disclaimerModal");
+        const understandButton = document.getElementById("understandButton");
+        window.addEventListener("load", function () {
+            modal.style.display = "block";
+        });
+        understandButton.onclick = function () {
+            modal.style.display = "none";
+        }
+        // Global Variables
+        const textArea = document.getElementById("review");
+        const characterCount = document.getElementById("review-count");
         const clearButton = document.getElementById('clearButton');
         const predictButton = document.getElementById('predictButton');
-
+        const cdlevelElement = document.getElementById('cdlevel');
         // Add an input event listener to the text area
-        reviewTextArea.addEventListener('input', function () {
-            if (reviewTextArea.value.trim() !== '') {
+        textArea.addEventListener('input', function () {
+            if (textArea.value.trim() !== '') {
                 clearButton.disabled = false;
                 predictButton.disabled = false;
             } else {
@@ -355,26 +373,30 @@
                 predictButton.disabled = true; 
             }
         });
-
-        // Confidince level text gl variable for hiding(off & clear) and showing(predict)
-        var cdlevelElement = document.getElementById('cdlevel');
         // Character Limit JS
-        var textArea = document.getElementById("review");
-        var characterCount = document.getElementById("review-count");
         textArea.addEventListener("input", function() {
             characterCount.textContent = textArea.value.length + "/" + textArea.maxLength + " character limit";
         });
         // Autosizing JS
-        autosize(document.getElementById('review'));
-
+        autosize(textArea);
+        // Text Area Keystroke JS
+        textArea.addEventListener('keydown', function(e) {
+            if (e.keyCode === 13 && e.ctrlKey) {
+                e.preventDefault();
+                clearButton.click();
+            } else if (e.keyCode === 13) {
+                e.preventDefault();
+                predictButton.click();
+            }
+        });
         // Clear Button JS
-        document.getElementById('clearButton').addEventListener('click', function() {
+        clearButton.addEventListener('click', function() {
             document.body.classList.add('color-change');
             document.documentElement.style.backgroundColor = '#A3C6EE';
             document.getElementById('Sentivm').src = '../static/images/Sentivm-On.png'; // once you type and then clear will show on 
-            document.getElementById('review').value = '';
+            textArea.value = '';
             cdlevelElement.style.display = 'none'; // hide confidence level text
-            autosize.update(document.getElementById('review'));
+            autosize.update(textArea);
             document.getElementById('predictionResult').textContent = '';
             document.getElementById('prediction-score').textContent = '';
             document.getElementById('lpred-label').textContent = '';
@@ -387,8 +409,8 @@
         });
 
         // Predict Button JS
-        document.getElementById('predictButton').addEventListener('click', function() {
-        const review = document.getElementById('review').value;
+        predictButton.addEventListener('click', function() {
+        const review = textArea.value;
         $.ajax({
             type: 'POST',
             url: '/predict',
@@ -415,7 +437,7 @@
                 document.body.classList.add('color-change');
                 document.documentElement.style.backgroundColor = '#A3C6EE';
                 document.getElementById('predictionResult').textContent = sentiment.toUpperCase();
-                document.getElementById('cdlevel').style.display = 'block';
+                cdlevelElement.style.display = 'block';
 
                 // Update the UI elements with major, second, and lowest sentiments
                 document.getElementById('Sentivm').src = `../static/images/Sentivm-${majorSentiment.label}.png`;
