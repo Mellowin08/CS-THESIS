@@ -351,12 +351,22 @@
         // Disclaimer modal
         const modal = document.getElementById("disclaimerModal");
         const understandButton = document.getElementById("understandButton");
-        window.addEventListener("load", function () {
-            modal.style.display = "block";
-        });
-        understandButton.onclick = function () {
-            modal.style.display = "none";
+
+        function hasUserAgreed() {
+            return document.cookie.includes("disclaimerAgreed=true");
         }
+
+        if (!hasUserAgreed()) {
+            window.addEventListener("load", function () {
+                modal.style.display = "block";
+            });
+        }
+
+        understandButton.addEventListener("click", function () {
+            document.cookie = "disclaimerAgreed=true; expires=Fri, 31 Dec 9999 23:59:59 PHT;";
+            modal.style.display = "none";
+        });
+
         // Global Variables
         const textArea = document.getElementById("review");
         const characterCount = document.getElementById("review-count");
