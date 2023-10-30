@@ -33,6 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap & CSS-->
     <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font -->
@@ -53,6 +54,17 @@
     <title>RevU's | Consolidated Analyzer</title>
 </head>
 <body>
+    <!-- Disclaimer Modal -->
+    <div id="consolidated_disclaimer" class="modal">
+        <div class="modal-content p-md-5">
+            <center>
+            <h2>Disclaimer</h2>
+                <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. </p>
+                <p>Vitae ut, reiciendis laudantium nulla delectus, sit sed eius accusantium similique perspiciatis animi. Iusto exercitationem, nobis aliquam veritatis nihil labore minus ullam.</p> 
+            <button id="consolidated_understandButton" class="blue-button">I Understand</button>
+            </center>
+        </div>
+    </div>
     <nav class="pl-5 pr-5 navbar navbar-expand-lg align-items-center navbar-dark fixed-top">
         <a class="navbar-brand" href="index.html">RevU’s</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,8 +117,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+    <script src="../static/js/disclaimer_modal.js" type="text/javascript"></script>
     <script>
+        manageModalDisplay("consolidated_disclaimer", "consolidated_understandButton", "consolidated_disclaimerAgreed")
     // Initialize Bootstrap dropdowns
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
