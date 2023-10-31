@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+    #significance .image-container {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        height: auto;
+    }
+    #significance .text-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.3s;
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    #significance .image-container:hover .text-overlay {
+        opacity: 1;
+    }
+    #significance row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #significance h3{
+        text-align: center;
+        margin-top: 20px; 
+    }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap & CSS-->
@@ -83,10 +120,7 @@
         </div>
     </section>
 
-
-
-
-<!-- Features -->
+    <!-- Features -->
     <section id="features" class="row align-items-center">
     <div class="container text-center">
     <div class="row" data-aos="fade-left" data-aos-delay="50" data-aos-duration="1500">
@@ -124,10 +158,9 @@
     </div>
     </section>
     
-    
     <section id="context" class="row align-items-center">
     <!-- Purpose of the Project -->
-    <div class="container mx-auto">
+    <div id="purpose" class="container mx-auto">
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
                 <h1 class="title font-weight-bold">What's the Purpose of the Project?</h1>
@@ -148,16 +181,47 @@
             </div>
         </div>
     </div>
-    
+    <!-- Significance of the Study -->
+    <div id="significance" class="container mx-auto">
+        <div class="row justify-content-center">
+            <h1 class="title font-weight-bold">Significance of the Study</h1>
+        </div>
+        <div class="row">
+            <div id="small_business" class="col-md-4">
+                <div class="image-container">
+                    <img src="../static/images/Small_Business.jpg" alt="A Cashier behind the counter" class="img-fluid">
+                    <div class="text-overlay pl-5 pr-5">
+                        <p>This study provides a potential for small businesses to drive growth and sustainability. Implementing customer feedback-driven changes increases the company’s reputation, fosters loyalty, and boosts profitability. The effectiveness of the policies will enable these businesses to make their own brand identity, thus standing out in a crowded market.</p>
+                    </div>
+                </div>
+                <h3>Small Businesses</h3>
+            </div>
+            <div id="top_manager" class="col-md-4">
+                <div class="image-container">
+                    <img src="../static/images/Top_Manager.jpg" alt="Business Woman checking her phone in front of a laptop" class="img-fluid">
+                    <div class="text-overlay">
+                        <p>The proposed system equips top management with actionable insights, allowing them to make strategic adjustments to their policies that enhance products, refine marketing strategies, and improve customer support. Top managers can adapt to evolving customer preferences by making data-driven decisions.</p>
+                    </div>
+                </div>
+                <h3>Top Management</h3>
+            </div>
+            <div id="customer" class="col-md-4">
+                <div class="image-container">
+                    <img src="../static/images/Happy_Customer.jpg" alt="Happy Customer Buying Online with Credit Card on Hand" class="img-fluid">
+                    <div class="text-overlay">
+                        <p>The ripple effect of these improvements in the businesses will extend to the customer. Customers benefit from tailored products and services, exceeding their expectations. Enhanced satisfaction, trust, and loyalty result from businesses that actively listen and adapt, creating a more rewarding purchasing experience.</p>
+                    </div>
+                </div>
+                <h3>Customers</h3>
+            </div>
+        </div>
+    </div>     
     </section>
 
     
     <!-- Meet the Proponents -->
     <section id="team" class="row align-items-center">
-    
     <div class="container">
-
-        <!-- Second Section -->
         <div class="row">
             <div class="col-md-12 text-center">
                 <h1 class="font-weight-bold">Meet the Proponents</h1>
@@ -165,8 +229,6 @@
             </div>
         </div>
         <br>
-
-        <!-- Third Section -->
         <div class="row pb-5">
             <div class="col-md-4">
                 <div class="image-frame">
