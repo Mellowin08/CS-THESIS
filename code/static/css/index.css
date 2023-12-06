@@ -82,7 +82,10 @@ h2 {
             border-width: 1px;
         }
     }
-
+#features img, #context img {
+    -webkit-filter: drop-shadow(3px 3px 3px #8d8d8e);
+    filter: drop-shadow(3px 3px 3px #8d8d8e);
+}
 /* Significance of the Study */
 #significance .image-container {
     position: relative;
@@ -127,6 +130,25 @@ h2 {
     margin-top: 10px; /* Add margin to separate from the image */
 }
 
-.image-frame p {
-    margin: 10px 0;
+.member-frame {
+    position: relative;
+    overflow: hidden;
+}
+
+.text-frame {
+    position: relative;
+    bottom: 0;
+    background-color: var(--color-navyblue);
+    width: 100%;
+    height: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: white;
+}
+
+@media (max-width: 767px) {
+    .text-frame {
+        height: auto; /* Allow the height to adjust based on content for smaller screens */
+    }
 }

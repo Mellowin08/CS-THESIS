@@ -2,7 +2,6 @@ class Footer extends HTMLElement{
     constructor() {
         super();
     }
-
     connectedCallback() {
         this.innerHTML = `
         <footer class="py-4">
@@ -45,5 +44,4 @@ class Footer extends HTMLElement{
         `
     }
 }
-
 customElements.define('footer-component', Footer);
