@@ -13,29 +13,8 @@
     <title>Analysis Results</title>
 </head>
 <body>
-    <!-- modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content text-center">
-            <h2>{{ llabel }}</h2>
-            <p>{{ lvalue }} out of {{ total_count }}</p>
-            {% if llabel == 'Positive' %}
-                {% for phrase in positive_phrases %}
-                    <p>{{ phrase }}</p>
-                {% endfor %}
-            {% elif llabel == 'Negative' %}
-                {% for phrase in negative_phrases %}
-                    <p>{{ phrase }}</p>
-                {% endfor %}
-            {% elif llabel == 'Neutral' %}
-                {% for phrase in neutral_phrases %}
-                    <p>{{ phrase }}</p>
-                {% endfor %}
-            {% endif %}
-            <span class="close-button" onclick="closeModal()">Close</span>
-        </div>
-    </div>
-    <div id="result"class="container-fluid">
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row lmao">
             <div class="col text-center">
                 <div class="container-fluid">
                     <h2>Top {{ hlabel }} Reviews</h2>
@@ -70,33 +49,52 @@
                 
                 <h2>{{ hlabel }}</h2>
                 <p>{{ hvalue }} out of {{ total_count }}</p>
-                <a id="analyze2-btn" class="btn btn-primary btn-lg mt-2" href="consolidated_reviews.html">Analyze Another</a>
-                <a id="openModalButton" class="btn btn-primary btn-lg mt-2">View Other Results</a>
-
+                <a id="analyze2-btn" class="btn btn-primary btn-lg" href="consolidated_reviews.html">Analyze Another</a>
             </div>
-            <div class="col-4 text-center">
-                <div id="mid-sen" class="container-fluid">
-                    <h2>{{ slabel }}</h2>
-                    <p>{{ svalue }} out of {{ total_count }}</p>
-                    <div id="sentimentContainer">
-                        {% if slabel == 'Positive' %}
+            <div id="mid-sen" class="col-4 text-center">
+                <h2>{{ slabel }}</h2>
+                <p>{{ svalue }} out of {{ total_count }}</p>
+                <div id="sentimentContainer">
+                    {% if slabel == 'Positive' %}
+                        {% for phrase in positive_phrases %}
+                            <p>{{ phrase }}</p>
+                        {% endfor %}
+                    {% elif slabel == 'Negative' %}
+                        {% for phrase in negative_phrases %}
+                            <p>{{ phrase }}</p>
+                        {% endfor %}
+                    {% elif slabel == 'Neutral' %}
+                        {% for phrase in neutral_phrases %}
+                            <p>{{ phrase }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button id="showMoreButton2" onclick="toggleVisibilitySentiment()">Show More</button>
+            </div>
+            <div class="row justify-content-end">
+                <div id="low-sen" class="col-4 text-center">
+                    <h2>{{ llabel }}</h2>
+                    <p>{{ lvalue }} out of {{ total_count }}</p>
+                    <div id="labelContainer">
+                        {% if llabel == 'Positive' %}
                             {% for phrase in positive_phrases %}
                                 <p>{{ phrase }}</p>
                             {% endfor %}
-                        {% elif slabel == 'Negative' %}
+                        {% elif llabel == 'Negative' %}
                             {% for phrase in negative_phrases %}
                                 <p>{{ phrase }}</p>
                             {% endfor %}
-                        {% elif slabel == 'Neutral' %}
+                        {% elif llabel == 'Neutral' %}
                             {% for phrase in neutral_phrases %}
                                 <p>{{ phrase }}</p>
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <button id="showMoreButton2" onclick="toggleVisibilitySentiment()">Show More</button>
+                    <button id="showMoreButton3" onclick="toggleVisibilityLabel()">Show More</button>
                 </div>
             </div>
         </div>
+        
     </div>        
 </body>
 <script>
@@ -148,15 +146,29 @@
     }
 </script>
 <script>
-    $("#openModalButton").on("click", function() {
-        $("#myModal").css("display", "flex");
-    });
+    function toggleVisibilityLabel() {
+        var labelContainer = document.getElementById("labelContainer");
+        var allParagraphs = labelContainer.getElementsByTagName("p");
 
-    function closeModal() {
-        $("#myModal").css("display", "none");
+        for (var i = 5; i < allParagraphs.length; i++) {
+            if (allParagraphs[i].style.display === "none") {
+                allParagraphs[i].style.display = "block";
+            } else {
+                allParagraphs[i].style.display = "none";
+            }
+        }
+
+        var buttonText = document.getElementById("showMoreButton3");
+        buttonText.innerHTML = (buttonText.innerHTML === "Show More") ? "Show Less" : "Show More";
+    }
+
+    var labelContainer = document.getElementById("labelContainer");
+    var allParagraphsLabel = labelContainer.getElementsByTagName("p");
+
+    for (var i = 5; i < allParagraphsLabel.length; i++) {
+        allParagraphsLabel[i].style.display = "none";
     }
 </script>
-
 </html>
 
 
