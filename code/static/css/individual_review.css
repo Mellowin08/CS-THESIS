@@ -47,6 +47,9 @@
 #cdlevel {
     font-size: 24px !important;
 }
+.controls {
+    margin-left: -15px !important;  
+}
 /* Confidence score */
 
 #predictionResult {
@@ -76,6 +79,9 @@
     font-size: 30px;
     color: #1E63B2;
 }
+.container.col-12 {
+    padding: 0px;
+}
 @media (max-width: 700px) {
     #Sentivm{
     width: 100%;
@@ -87,6 +93,9 @@
     .row.m-3 {
         margin-left: 23px !important;
     }
+    .prompt {
+        margin-left: -80px;
+    }
     #review {
         width: 380px;
         height: 180px;
@@ -94,8 +103,11 @@
         margin-right: 0px !important;
         display: block !important;
     }
+    .controls {
+        margin-left: 0px !important;  
+    }
     #review-count{
-        margin-right: 35px;
+        text-align:start !important;
     }
     .pred-left.text-center.mr-5{
         margin: 0px !important;
@@ -109,13 +121,28 @@
     #rpred-label, #rpred-value {
         font-size: 25px !important;
     }
-    .d-flex.justify-content-center {
+    .label-pred {
+        margin-left: -65px !important;
+    }
+    #prediction-score {
         position: absolute !important;
-        margin-left: -53px !important;
+        margin-left: 280px !important;
+    }
+    .pred-left.text-center.ml-5 {
+        position: absolute !important;
+
+    }
+    .pred-right.text-center.ml-5 {
+        position: absolute !important;
+        right: -250px !important;
     }
     .py-4 {
         position: absolute !important;
         margin-top: 50px !important;
+        margin-bottom: -890px !important;
+    }
+    footer {
+        margin-bottom: -950px !important;
     }
 }
 @media (max-width: 375px) {
@@ -135,10 +162,6 @@
         margin-left: -88px !important;
         margin-right: 0px !important;
         display: block !important;
-    }
-    #review-count{
-        margin-right: 0px;
-        padding-right: 11px;
     }
     .pred-left.text-center.mr-5{
         margin: 0px !important;
@@ -178,10 +201,6 @@
         margin-right: -10px !important;
         display: block !important;
     }
-    #review-count{
-        margin-right: 0px;
-        padding-right: 15px;
-    }
     .pred-left.text-center.mr-5{
         margin: 0px !important;
     }
@@ -217,10 +236,6 @@
         margin-right: 0px !important;
         display: block !important;
     }
-    #review-count{
-        margin-right: 0px;
-        padding-right: 15px;
-    }
     .pred-left.text-center.mr-5{
         margin: 0px !important;
     }
@@ -255,9 +270,5 @@
         margin-left: -93px !important;
         margin-right: 0px !important;
         display: block !important;
-    }
-    #review-count{
-        margin-right: 0px;
-        padding-right: 0px;
     }
 }
