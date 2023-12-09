@@ -181,6 +181,7 @@
                     } else {
                         // Invalid file type dropped, hide uploaded-csv div and show pre-upload div
                         uploadedCsvDiv.style.display = "none";
+                        uploadContainer.style.border = '4px dashed #cccccc';
                         preUploadDiv.style.display = "block";
                         alert("Please upload a valid CSV file.");
                     }
