@@ -58,23 +58,23 @@
             </ul>
         </div>
     </nav>
-    <div class="container d-flex flex-column row align-items-center p-5 mx-auto mt-5 ">
+    <div class="container d-flex flex-column row align-items-center p-5 mx-auto mt-5">
         <h2 class="text-center p-2" style="color: #A3C6EE">Consolidated Product Review Analyzer</h2>
         <form id="upload-form" action="/consolidate_csv" method="post" enctype="multipart/form-data">
             <label for="upload-input" class="upload-label">
-                <div id="upload-container" class="d-flex flex-column align-items-center justify-content-center">
-                    <div id="pre-upload">
-                        <img src="../static/images/csv_upload-icon.png" width="100" class="m-3">
-                        <p style="font-weight: bold">Choose a CSV file <br> <span style="font-weight: normal;">or</span> <br> Drop it here</p>
+                    <div id="upload-container" class="d-flex flex-column align-items-center justify-content-center">
+                        <div id="pre-upload">
+                            <img src="../static/images/csv_upload-icon.png" width="100" class="m-3">
+                            <p style="font-weight: bold">Choose a CSV file <br> <span style="font-weight: normal;">or</span> <br> Drop it here</p>
+                        </div>
+                        <input type="file" name="file" id="upload-input" accept=".csv" class="d-none">
+                        <div id="uploaded-csv" style="display: none;">
+                            <img src="../static/images/Sentivm-Product.png" width="100" class="m-3">
+                            <p>Selected CSV File:</p>
+                            <div id="file-name-box"></div>
+                            <button type="button" id="reset-button" class="btn btn-secondary m-3">Reset</button>
+                        </div>
                     </div>
-                    <input type="file" name="file" id="upload-input" accept=".csv" class="d-none">
-                    <div id="uploaded-csv" style="display: none;">
-                        <img src="../static/images/Sentivm-Product.png" width="100" class="m-3">
-                        <p>Selected CSV File:</p>
-                        <div id="file-name-box"></div>
-                        <button type="button" id="reset-button" class="btn btn-secondary m-3">Reset</button>
-                    </div>
-                </div>
             </label>
             <div class="text-center"><button id="analyze-button" type="submit" class="btn btn-secondary m-3" id="predictButton" disabled>Analyze</button></div>
         </form>
@@ -143,6 +143,50 @@
         uploadInput.files = e.dataTransfer.files;
         updateUI(droppedFile);
     });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var uploadContainer = document.getElementById("upload-container");
+            var preUploadDiv = document.getElementById("pre-upload");
+            var uploadedCsvDiv = document.getElementById("uploaded-csv");
+    
+            uploadContainer.addEventListener("dragover", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadContainer.classList.add("dragover");
+            });
+    
+            uploadContainer.addEventListener("dragleave", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadContainer.classList.remove("dragover");
+            });
+    
+            uploadContainer.addEventListener("drop", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadContainer.classList.remove("dragover");
+    
+                var files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    var file = files[0];
+                    if (file.type === "application/vnd.ms-excel" || file.name.endsWith(".csv")) {
+                        // Valid CSV file dropped, show uploaded-csv div
+                        uploadedCsvDiv.style.display = "block";
+                        document.getElementById("file-name-box").innerText = file.name;
+                        document.getElementById("analyze-button").disabled = false;
+    
+                        // Hide pre-upload div
+                        preUploadDiv.style.display = "none";
+                    } else {
+                        // Invalid file type dropped, hide uploaded-csv div and show pre-upload div
+                        uploadedCsvDiv.style.display = "none";
+                        preUploadDiv.style.display = "block";
+                        alert("Please upload a valid CSV file.");
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>
