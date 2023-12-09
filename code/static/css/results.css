@@ -43,7 +43,10 @@ p{
     border-color: transparent;
 }
 
-
+.modal-1,
+.modal-2 {
+    color: #0E1D34;
+}
 
 .modal {
     display: none;
@@ -63,15 +66,15 @@ p{
     padding: 20px;
     border-radius: 10px;
     width: 500px !important;
-    max-width: 100%;
     height: auto !important;
     position: relative;
+    overflow-y: auto; /* Add this line to make the modal scrollable */
+    max-height: 80vh;
 }
 
 .close-button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+    position: relative;
+    margin-left: 420px;
     cursor: pointer;
     color: #0E1D34; /* Set the color for the close button text */
 }
@@ -146,10 +149,9 @@ p{
     }
 
     .close-button {
-        position: absolute;
-        margin-bottom: -8px;
-        bottom: 10px;
-        right: 10px;
+        position: relative;
+        margin-left: 310px;
+        margin-bottom: 10px;
         cursor: pointer;
         color: #0E1D34; /* Set the color for the close button text */
     }
