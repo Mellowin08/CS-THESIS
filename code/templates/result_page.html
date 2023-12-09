@@ -17,7 +17,7 @@
     <div id="myModal2" class="modal">
         <div class="modal-content text-center">
             <h2>{{ slabel }}</h2>
-            <p>{{ svalue }} out of {{ total_count }}</p>
+            <p class="modal-1">{{ svalue }} out of {{ total_count }}</p>
             {% if slabel == 'Positive' %}
                 {% for phrase in positive_phrases %}
                     <p>{{ phrase }}</p>
@@ -38,7 +38,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content text-center">
             <h2>{{ llabel }}</h2>
-            <p>{{ lvalue }} out of {{ total_count }}</p>
+            <p class="modal-2">{{ lvalue }} out of {{ total_count }}</p>
             {% if llabel == 'Positive' %}
                 {% for phrase in positive_phrases %}
                     <p>{{ phrase }}</p>
