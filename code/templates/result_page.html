@@ -14,6 +14,27 @@
 </head>
 <body>
     <!-- modal -->
+    <div id="myModal2" class="modal">
+        <div class="modal-content text-center">
+            <h2>{{ slabel }}</h2>
+            <p>{{ svalue }} out of {{ total_count }}</p>
+            {% if slabel == 'Positive' %}
+                {% for phrase in positive_phrases %}
+                    <p>{{ phrase }}</p>
+                {% endfor %}
+            {% elif slabel == 'Negative' %}
+                {% for phrase in negative_phrases %}
+                    <p>{{ phrase }}</p>
+                {% endfor %}
+            {% elif slabel == 'Neutral' %}
+                {% for phrase in neutral_phrases %}
+                    <p>{{ phrase }}</p>
+                {% endfor %}
+            {% endif %}
+            <span class="close-button" onclick="closeModal2()">Close</span>
+        </div>
+    </div>
+    <!-- modal2 -->
     <div id="myModal" class="modal">
         <div class="modal-content text-center">
             <h2>{{ llabel }}</h2>
@@ -31,7 +52,7 @@
                     <p>{{ phrase }}</p>
                 {% endfor %}
             {% endif %}
-            <span class="close-button" onclick="closeModal()">Close</span>
+            <span class="close-button" onclick="closeModal1()">Close</span>
         </div>
     </div>
     <div id="result"class="container-fluid">
@@ -54,7 +75,6 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <button id="showMoreButton" onclick="toggleVisibility()">Show More</button>
                 </div>
             </div>
             <div class="col text-center">
@@ -71,29 +91,18 @@
                 <h2>{{ hlabel }}</h2>
                 <p>{{ hvalue }} out of {{ total_count }}</p>
                 <a id="analyze2-btn" class="btn btn-primary btn-lg mt-2" href="consolidated_reviews.html">Analyze Another</a>
-                <a id="openModalButton" class="btn btn-primary btn-lg mt-2">View Other Results</a>
-
             </div>
-            <div class="col-4 text-center">
+            <div class="col-12 col-md-4 text-center px-md-5">
                 <div id="mid-sen" class="container-fluid">
-                    <h2>{{ slabel }}</h2>
+                    <h2 class="mb-5">Other Reviews</h2>
+                    <h4>{{ slabel }}</h4>
                     <p>{{ svalue }} out of {{ total_count }}</p>
-                    <div id="sentimentContainer">
-                        {% if slabel == 'Positive' %}
-                            {% for phrase in positive_phrases %}
-                                <p>{{ phrase }}</p>
-                            {% endfor %}
-                        {% elif slabel == 'Negative' %}
-                            {% for phrase in negative_phrases %}
-                                <p>{{ phrase }}</p>
-                            {% endfor %}
-                        {% elif slabel == 'Neutral' %}
-                            {% for phrase in neutral_phrases %}
-                                <p>{{ phrase }}</p>
-                            {% endfor %}
-                        {% endif %}
+                    <a id="openModalButton2" class="btn btn-primary btn-lg mt-2">View Results</a>
+                    <div class="container mt-3">
+                        <h4>{{ llabel }}</h4>
+                        <p>{{ lvalue }} out of {{ total_count }}</p>
+                        <a id="openModalButton" class="btn btn-primary btn-lg mt-2">View Results</a>
                     </div>
-                    <button id="showMoreButton2" onclick="toggleVisibilitySentiment()">Show More</button>
                 </div>
             </div>
         </div>
@@ -124,36 +133,24 @@
     }
 </script>
 <script>
-    function toggleVisibilitySentiment() {
-        var sentimentContainer = document.getElementById("sentimentContainer");
-        var allParagraphs = sentimentContainer.getElementsByTagName("p");
-
-        for (var i = 5; i < allParagraphs.length; i++) {
-            if (allParagraphs[i].style.display === "none") {
-                allParagraphs[i].style.display = "block";
-            } else {
-                allParagraphs[i].style.display = "none";
-            }
-        }
-
-        var buttonText = document.getElementById("showMoreButton2");
-        buttonText.innerHTML = (buttonText.innerHTML === "Show More") ? "Show Less" : "Show More";
-    }
-
-    var sentimentContainer = document.getElementById("sentimentContainer");
-    var allParagraphsSentiment = sentimentContainer.getElementsByTagName("p");
-
-    for (var i = 5; i < allParagraphsSentiment.length; i++) {
-        allParagraphsSentiment[i].style.display = "none";
-    }
-</script>
-<script>
+    // Function to open Modal 1
     $("#openModalButton").on("click", function() {
         $("#myModal").css("display", "flex");
     });
 
-    function closeModal() {
+    // Function to close Modal 1
+    function closeModal1() {
         $("#myModal").css("display", "none");
+    }
+
+    // Function to open Modal 2
+    $("#openModalButton2").on("click", function() {
+        $("#myModal2").css("display", "flex");
+    });
+
+    // Function to close Modal 2
+    function closeModal2() {
+        $("#myModal2").css("display", "none");
     }
 </script>
 
