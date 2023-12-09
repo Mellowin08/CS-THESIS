@@ -47,9 +47,6 @@
 #cdlevel {
     font-size: 24px !important;
 }
-.controls {
-    margin-left: -15px !important;  
-}
 /* Confidence score */
 
 #predictionResult {
