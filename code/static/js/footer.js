@@ -15,7 +15,7 @@ class Footer extends HTMLElement{
                     <ul class="list-unstyled">
                         <li><a href="https://nijianmo.github.io/amazon/index.html#subsets">Data Source</a></li>
                         <li><a href="https://github.com/Mellowin08/CS-THESIS/">Website Repository</a></li>
-                        <li><a href="#">Research Paper</a></li>
+                        <li><a href="../static/documents/research_paper.pdf">Research Paper</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
