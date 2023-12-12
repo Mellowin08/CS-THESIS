@@ -153,7 +153,12 @@ def consolidate_csv():
 
                 return redirect(url_for('result_page', positive_count=positive_count, negative_count=negative_count, neutral_count=neutral_count, total_count=total_count))
 
-    return "Please upload a valid CSV file."
+    return redirect(url_for('error_page'))
+
+@app.route('/error_page')
+def error_page():
+    return render_template('error_page.html')
+
 
 @app.route('/result_page', methods=['GET'])
 def result_page():
