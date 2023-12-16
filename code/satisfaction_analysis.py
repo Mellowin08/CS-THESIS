@@ -4,23 +4,11 @@ from data_preprocess import text_cleaner
 import joblib
 import os
 import numpy as np
-import gdown
 
-# Google Drive links for the files
-google_drive_link_vectorizer = "https://drive.google.com/uc?id=1EzHFwNxd1FXUvZ8sArzX0moWrhA0fdHP"
-google_drive_link_svm_classifier = "https://drive.google.com/uc?id=1ABWUGve7-HnrITGXyiQ2GpGj0yEXaOxm"
-
-# Destination paths for saving the downloaded files
-destination_path_vectorizer = "tfidf_vectorizer.joblib"
-destination_path_svm_classifier = "SVM_classifier.joblib"
-
-# Download the files from Google Drive
-gdown.download(google_drive_link_vectorizer, destination_path_vectorizer, quiet=False)
-gdown.download(google_drive_link_svm_classifier, destination_path_svm_classifier, quiet=False)
-
-# Load the vectorizer and SVM classifier using joblib
-vectorizer = joblib.load(destination_path_vectorizer)
-svm_classifier = joblib.load(destination_path_svm_classifier)
+current_path = os.path.dirname(__file__)
+models_path = os.path.join(current_path, '../machine_learning/models/')
+vectorizer = joblib.load(models_path + "tfidf_vectorizer.joblib")
+svm_classifier = joblib.load(models_path + "SVM_classifier.joblib")
 
 
 
