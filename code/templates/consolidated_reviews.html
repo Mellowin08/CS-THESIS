@@ -59,13 +59,14 @@
     </nav>
     <div class="container d-flex flex-column row align-items-center p-5 mx-auto mt-5">
         <h2 class="text-center p-2" style="color: #A3C6EE">Consolidated Product Review Analyzer</h2>
+        <p style="font-style: italic; font-size: 15px; text-align: center;">Note: Format your spreadsheet with the first column titled as "Reviews." <br>Each review should be listed below this header.<br> Save your file into CSV</p><italic>
         <form id="upload-form" action="/consolidate_csv" method="post" enctype="multipart/form-data">
             <label for="upload-input" class="upload-label">
                     <div id="upload-container" class="d-flex flex-column align-items-center justify-content-center">
                         <div id="pre-upload">
                             <img src="../static/images/csv_upload-icon.png" width="100" class="m-3">
                             <p style="font-weight: bold">Choose a CSV file <br> <span style="font-weight: normal;">or</span> <br> Drop it here <br> </p> 
-                            <p style="font-style: italic; font-size: 10px;">Note: For CSV uploads, format your file with one column titled "Reviews." <br>Each review should be listed below this title.</p>
+                            
                         </div>
                         <input type="file" name="file" id="upload-input" accept=".csv" class="d-none">
                         <div id="uploaded-csv" style="display: none;">

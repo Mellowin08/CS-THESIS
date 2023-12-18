@@ -200,4 +200,4 @@ def result_page():
     return render_template('result_page.html', positive_count=positive_count, negative_count=negative_count, neutral_count=neutral_count, total_count=total_count, ranking=ranking, hvalue=hvalue, hlabel=hlabel, svalue=svalue, slabel=slabel, lvalue=lvalue, llabel=llabel, positive_phrases=positive_phrases, negative_phrases=negative_phrases, neutral_phrases=neutral_phrases)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
