@@ -10,6 +10,8 @@ models_path = os.path.join(current_path, '../machine_learning/models/')
 vectorizer = joblib.load(models_path + "tfidf_vectorizer.joblib")
 svm_classifier = joblib.load(models_path + "SVM_classifier.joblib")
 
+
+
 def predict_sentiment(user_input):
     clean_input = text_cleaner(user_input)
 
